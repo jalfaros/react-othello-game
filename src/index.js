@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Register } from './Components/register/Register';
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CardLogin } from './Components/login/CardLogin';
 
 ReactDOM.render(
-  <Register />,
+  <CardLogin />,
   document.getElementById('root')
 );

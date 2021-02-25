@@ -1,8 +1,6 @@
 import React from 'react'
 import { useForm } from '../../Hooks/useForm';
-
-//import Card from 'react-bootstrap/Card'
-
+import { LoginWithFacebook } from './LoginWithFacebook';
 
 export const CardLogin = () => {
 
@@ -26,14 +24,17 @@ export const CardLogin = () => {
 
         reset();
     }
+
+    const responseFacebook = (response) => {
+        console.log(response);
+      }
+
     return (
 
         <div className="text-center m-5">
-            
-
             <h1>Bienvenido</h1>
             <hr />
-            <div className="widthLogin shadow mb-5 bg-white rounded  p-3 text-center mx-auto m-5 w-50">
+            <div className="widthLogin shadow mb-5 bg-white rounded  p-3 text-center mx-auto m-5 widthLogin">
                 <form onSubmit={ handleSubmit }>
                     <span className="form-label">
                         <h3>Login</h3>
@@ -47,8 +48,7 @@ export const CardLogin = () => {
                             required
                             value={ email }
                             onChange={ handleInputChange }
-                            placeholder="Email"
-                            />
+                            placeholder="Email"/>
                     </div>
 
                     <div className="mb-3 m-3">
@@ -59,8 +59,7 @@ export const CardLogin = () => {
                             required
                             value={ password }
                             onChange={ handleInputChange }
-                            placeholder="Password"
-                            />
+                            placeholder="Password"/>
                     </div>
 
                     <div className="mb-3">
@@ -68,8 +67,7 @@ export const CardLogin = () => {
                         <input
                             className="form-check-input"
                             type="checkbox"
-                            name="remember-me"
-                        />
+                            name="remember-me"/>
                         <label className="form-check-label" >
                             Remember my username
                         </label>
@@ -84,10 +82,13 @@ export const CardLogin = () => {
                         </div>
                     </div>
 
-                </form>
+                    <div className="mb-3">
 
+                        <LoginWithFacebook responseFacebook={ responseFacebook }/>
+                        
+                    </div>
+                </form>
             </div>
-            
         </div>
 
     )

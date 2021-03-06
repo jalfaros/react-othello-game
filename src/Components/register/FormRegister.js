@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Button, Form,  Row, Col } from 'react-bootstrap'
+import { useHistory } from 'react-router';
 
 
 export const FormRegister = () => {
+
+    const history = useHistory();
 
     const [formValue, setFormValue] = useState({
         username: '',
@@ -17,6 +20,10 @@ export const FormRegister = () => {
             [event.target.name]: event.target.value
 
         })
+    }
+
+    const handleBack = () =>{
+        history.push('/login')
     }
 
     const saveInformation = (e) => {
@@ -66,7 +73,8 @@ export const FormRegister = () => {
                                 <Button     
                                             
                                             variant="danger"
-                                            block>
+                                            block
+                                            onClick={ handleBack }>
                                     Go back!
                                 </Button>
                             </Col>

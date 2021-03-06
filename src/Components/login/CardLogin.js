@@ -32,7 +32,8 @@ export const CardLogin = () => {
     return (
 
         <div className="text-center m-5">
-            <h1>Bienvenido</h1>
+            <h1>Welcome <small> to Othello</small>
+            </h1>
             <hr />
             <div className="widthLogin shadow mb-5 bg-white rounded  p-3 text-center mx-auto m-5 widthLogin">
                 <form onSubmit={ handleSubmit }>
@@ -46,7 +47,6 @@ export const CardLogin = () => {
                             type="email"
                             name="email"
                             required
-                            value={ email }
                             onChange={ handleInputChange }
                             placeholder="Email"/>
                     </div>

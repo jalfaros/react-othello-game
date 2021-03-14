@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Link, NavLink, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../auth/AuthContext'
 import { types } from '../../types/types';
+import firebase from '../../firebase/firebase'
 
 export const Navbar = () => {
 
@@ -14,6 +15,9 @@ export const Navbar = () => {
         dispatch({
             type: types.logout
         })
+
+
+        firebase.logOut();
         history.replace('/login');
     }
     return (

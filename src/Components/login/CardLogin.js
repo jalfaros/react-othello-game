@@ -1,50 +1,62 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../auth/AuthContext';
 import { useForm } from '../../Hooks/useForm';
 import { types } from '../../types/types';
 import { LoginWithFacebook } from './LoginWithFacebook';
-
+import firebase from '../../firebase/firebase';
 
 
 export const CardLogin = () => {
-
 
     const history = useHistory();
 
     const { dispatch } = useContext(AuthContext);
 
-    const [{email, password}, handleInputChange, reset] = useForm({
+    const [condition, setCondition] = useState(false);
+
+    const [{email, password}, handleInputChange] = useForm({
         email: '',
         password: ''
     }); 
 
+    async function signIn(){
+        try{
+            await firebase.login(email, password);
+
+
+        }catch(error){
+            console.error('Error with the autentication with the user', error.message);
+            setCondition(error.message);
+        }
+
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(email.trim().length <=1 || email.trim().length <=1){
-
+        if(email.trim().length <=1 || password.trim().length <=1){
             return;
         }
+        
+        signIn();
 
-        const userLogin = {
-            email,
-            password,
-        }
-        console.log(userLogin);
-
-        reset();
-
-        //Aqui iria el nombre que me devuelve
-        dispatch({
-            type: types.login,
-            payload: {
-                name: 'Warner'
-            }
-        })
-        history.replace('/')
-
+        const unsuscribe = firebase.auth.onAuthStateChanged(use =>{
+        if( use ){
+            //Aqui iria el nombre que me devuelve
+            dispatch({
+                type: types.login,
+                payload: {
+                    name: use.displayName
+                }
+            })
+            history.replace('/')
+                }else{
+                    //setUserAutenticated(null);
+                }
+                console.log(unsuscribe,'El unsuscribe');
+            })
 
     }
 
@@ -95,6 +107,12 @@ export const CardLogin = () => {
                             onChange={ handleInputChange }
                             placeholder="Password"/>
                     </div>
+
+                    {condition &&
+                      <div className="alert alert-danger mt-2" role="alert">
+                        {condition}
+                      </div>
+                    }
 
                     <div className="mb-3">
                         <div className="contact100-form-checkbox">

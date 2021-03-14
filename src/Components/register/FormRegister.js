@@ -1,52 +1,83 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Form,  Row, Col } from 'react-bootstrap'
 import { useHistory } from 'react-router';
+import { AuthContext } from '../../auth/AuthContext';
+
+import firebase from '../../firebase/firebase';
+import { useForm } from '../../Hooks/useForm';
+import { types } from '../../types/types';
 
 
 export const FormRegister = () => {
 
     const history = useHistory();
 
-    const [formValue, setFormValue] = useState({
-        username: '',
+    const { dispatch } = useContext(AuthContext);
+
+
+    const [condition, setCondition] = useState(false);
+    const [{userName, email, password}, handleInputChange] = useForm({
+        userName: '',
+        email: '',
         password: ''
-    });
+    }); 
 
-    const handleInputChange = (event) => {
-       
+    async function saveInformation() {
 
-        setFormValue({
-            ...formValue,
-            [event.target.name]: event.target.value
-
-        })
+        try{
+            dispatch({
+                type: types.login,
+                payload: {
+                    name: userName
+                }
+            })
+            await firebase.regist(userName, email, password);
+            await history.push('/login')
+        }catch(error){
+            //console.error('Hubo un error al crear el usuario', error);
+            setCondition(error.message);
+        }
     }
 
     const handleBack = () =>{
         history.push('/login')
     }
 
-    const saveInformation = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formValue)
+        //console.log(formValue)
+
+        if(email.trim().length <=1 || email.trim().length <=1 || userName.trim().length <=1){
+
+            return;
+        }
+        saveInformation()
     }
-
-
-
     return (
         <>
-            <Form onSubmit={saveInformation}>
+            <Form onSubmit={handleSubmit}>
 
                 <Form.Group>
                     <Form.Label>Username</Form.Label>
                     <Form.Control autoComplete = "off" 
-                        name="username"
+                        name="userName"
                         placeholder="Enter username"
                         onChange={handleInputChange} >
 
                     </Form.Control>
                 </Form.Group>
 
+
+                <Form.Group>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control autoComplete = "off" 
+                        name="email"
+                        type="email"
+                        placeholder="Enter email"
+                        onChange={handleInputChange}>
+
+                    </Form.Control>
+                </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Password</Form.Label>
@@ -81,6 +112,12 @@ export const FormRegister = () => {
 
                         </Row>
                     </div>
+
+                    {condition &&
+                      <div className="alert alert-danger mt-2" role="alert">
+                        {condition}
+                      </div>
+                    }
             </Form>
         </>
     )

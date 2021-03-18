@@ -3,6 +3,9 @@ import 'firebase/auth'
 
 import firebaseConfig from './config';
 
+//import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
+
+
 class Firebase {
     constructor() {
         if(!app.apps.length) {
@@ -34,8 +37,17 @@ class Firebase {
     async logOut(){
         await this.auth.signOut();
     }
+
+
+    //Login con facebook
+
+    async loginFacebook(provider){
+         return this.auth.signInWithPopup(provider);
+    }
+
+    
 }
 
-const firebase = new Firebase();
+ const firebas = new Firebase();
 
-export default firebase;
+ export default firebas;

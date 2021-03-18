@@ -1,18 +1,18 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Form,  Row, Col } from 'react-bootstrap'
 import { useHistory } from 'react-router';
-import { AuthContext } from '../../auth/AuthContext';
+//import { AuthContext } from '../../auth/AuthContext';
 
 import firebase from '../../firebase/firebase';
 import { useForm } from '../../Hooks/useForm';
-import { types } from '../../types/types';
+//import { types } from '../../types/types';
 
 
 export const FormRegister = () => {
 
     const history = useHistory();
 
-    const { dispatch } = useContext(AuthContext);
+    //const { dispatch } = useContext(AuthContext);
 
 
     const [condition, setCondition] = useState(false);
@@ -25,13 +25,14 @@ export const FormRegister = () => {
     async function saveInformation() {
 
         try{
-            dispatch({
-                type: types.login,
-                payload: {
-                    name: userName
-                }
-            })
+            // dispatch({
+            //     type: types.login,
+            //     payload: {
+            //         name: userName
+            //     }
+            // })
             await firebase.regist(userName, email, password);
+
             await history.push('/login')
         }catch(error){
             //console.error('Hubo un error al crear el usuario', error);
@@ -47,7 +48,7 @@ export const FormRegister = () => {
         e.preventDefault();
         //console.log(formValue)
 
-        if(email.trim().length <=1 || email.trim().length <=1 || userName.trim().length <=1){
+        if(email.trim().length <=1 || password.trim().length <=5 || userName.trim().length <=1){
 
             return;
         }

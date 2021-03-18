@@ -5,12 +5,19 @@ import { AuthContext } from '../../auth/AuthContext';
 import { useForm } from '../../Hooks/useForm';
 import { types } from '../../types/types';
 import { LoginWithFacebook } from './LoginWithFacebook';
-import firebase from '../../firebase/firebase';
+import firebas from '../../firebase/firebase';
+
+//import firebase from 'firebase'
+
+// import app from "../../firebase/firebaseConfig"
+
 
 
 export const CardLogin = () => {
 
     const history = useHistory();
+
+    //const provider = new firebase.auth.FacebookAuthProvider();
 
     const { dispatch } = useContext(AuthContext);
 
@@ -23,7 +30,7 @@ export const CardLogin = () => {
 
     async function signIn(){
         try{
-            await firebase.login(email, password);
+            await firebas.login(email, password);
 
 
         }catch(error){
@@ -32,6 +39,20 @@ export const CardLogin = () => {
         }
 
     }
+
+    // async function signInWithFacebook(provider){
+    //     try{
+    //         await firebas.loginFacebook(provider).then( result =>{
+    //             console.log(result);
+    //         }
+    //         )
+
+    //     }catch(error){
+    //         console.error('Error with the autentication with the user', error.message);
+    //         setCondition(error.message);
+    //     }
+
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,7 +63,7 @@ export const CardLogin = () => {
         
         signIn();
 
-        const unsuscribe = firebase.auth.onAuthStateChanged(use =>{
+        const unsuscribe = firebas.auth.onAuthStateChanged(use =>{
         if( use ){
             //Aqui iria el nombre que me devuelve
             dispatch({
@@ -63,17 +84,21 @@ export const CardLogin = () => {
     const responseFacebook = (response) => {
         console.log(response);
 
+        //signInWithFacebook(provider);
         //Aqui cambiar el nombre por el que me devuelve la vara
+
+
         dispatch({
             type: types.login,
             payload: {
                 name: response.name
             }
         })
-        
         history.replace('/')
 
       }
+
+
 
     return (
 

@@ -2,7 +2,6 @@ import React, { useEffect, useReducer } from 'react'
 import { AuthContext } from './auth/AuthContext'
 import { authReducer } from './auth/authReducer'
 import { AppRouter } from './routers/AppRouter'
-import firebase from './firebase/firebase'
 
 const init = () => {
     return JSON.parse(localStorage.getItem('user')) || { logged: false };

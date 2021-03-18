@@ -6,13 +6,13 @@ export const BoardScreen = () => {
 
     const idGame = '9DYfq3DpZbwHtnJOGZ9i';
 
-    const url  = `http://localhost:4000/getGame?idGame=${encodeURI(idGame)}`;
-    const {data} = useFetch( url );
+    const url = `http://localhost:3000/getGame?idGame=${encodeURI(idGame)}`;
+    const { data } = useFetch(url);
     let array;
 
     const [state, setState] = useState(array);
 
-    if(data){
+    if (data) {
         //console.log(data.game.boardGame);
         array = data.game;
         //console.log(array);
@@ -33,20 +33,20 @@ export const BoardScreen = () => {
                 <div className="text-center board mx-auto m-2 ">
 
                     {(data)
-                    &&
-                    array.boardGame.map(
-                        (item,i) => (
+                        &&
+                        array.boardGame.map(
+                            (item, i) => (
 
-                            <RowSquares 
-                                key     ={i}
-                                id      ={i}
-                                item    ={item}
-                                array   ={array}
-                                state   ={state}
-                                setState={setState}
-                            />
+                                <RowSquares
+                                    key={i}
+                                    id={i}
+                                    item={item}
+                                    array={array}
+                                    state={state}
+                                    setState={setState}
+                                />
+                            )
                         )
-                    )
 
                     }
 

@@ -6,7 +6,7 @@ import { SquareBoard } from './SquareBoard';
 import { useAlert } from 'react-alert'
 export const Board= () => {
 
-    const idGame = 'DWttCk5sgXnoVU00WkrV';
+    const idGame = 'pi6fWLjzlMyg1VglKE2U';
     const [state, setstate] = useState({
         data:[],
         loading: true

@@ -3,7 +3,7 @@ import { getInitialGame, postClickGame } from '../../helpers/getInitialGame';
 
 import {useFetch} from '../../Hooks/useFetch'
 import { SquareBoard } from './SquareBoard';
-
+import { useAlert } from 'react-alert'
 export const Board= () => {
 
     const idGame = 'DWttCk5sgXnoVU00WkrV';
@@ -13,6 +13,8 @@ export const Board= () => {
     });
 
     const { data } = useFetch(idGame);
+
+    const alert = useAlert();
 
     let array;
     const getGame = () =>{
@@ -28,7 +30,10 @@ export const Board= () => {
         array = state;
         
         if(item){
-            console.log('Seleccione una opcion sin marcar');
+            alert.show('No puede jugar en una casilla llena',{
+                type: 'info',
+                timeout: 1000,
+            })
             return;
         }
 

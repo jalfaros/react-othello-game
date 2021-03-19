@@ -6,7 +6,7 @@ export const BoardScreen = () => {
 
     const idGame = '9DYfq3DpZbwHtnJOGZ9i';
 
-    const url = `http://localhost:3000/getGame?idGame=${encodeURI(idGame)}`;
+    const url = `http://localhost:4000/getGame?idGame=${encodeURI(idGame)}`;
     const { data } = useFetch(url);
     let array;
 

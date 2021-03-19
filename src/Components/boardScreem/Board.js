@@ -1,10 +1,12 @@
-import React, {useState } from 'react'
+import React, { useState } from 'react'
+import { getInitialGame, postClickGame } from '../../helpers/getInitialGame';
+
 import {useFetch} from '../../Hooks/useFetch'
 import { SquareBoard } from './SquareBoard';
 
 export const Board= () => {
 
-    const idGame = '9DYfq3DpZbwHtnJOGZ9i';
+    const idGame = 'DWttCk5sgXnoVU00WkrV';
     const [state, setstate] = useState({
         data:[],
         loading: true
@@ -12,15 +14,14 @@ export const Board= () => {
 
     const { data } = useFetch(idGame);
 
-
     let array;
     const getGame = () =>{
    
             setstate({data: data, loading: false});
             array = data;
             console.log(array);
-   
     }
+
  
     const handleClick = (id, item) =>{
 
@@ -31,41 +32,60 @@ export const Board= () => {
             return;
         }
 
-        console.log('Sirve', id);
+        console.log('xPlay', state.data.xPlay);
 
-        if(array.data.xPlay){
+        if(state.data.xPlay){
 
-            //item = 'X';
+            postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} )
+            
+            .then(async m => {
+                await (
+                    getInitialGame( idGame )
+                    .then(async m => {
+                        setstate({
+                            data: await m.game,
+                            loading: false
+                        });
+                        console.log(m,'m');
+                    })
+                    .catch( error => {
+                        console.log(error);
+                    }));
+            }).catch(Error => {
+                console.log(Error);
+                })
 
             array.data.boardGame[id] = 'X';
 
-            array.data.xPlay = !array.data.xPlay;
-
-            console.log(array.data.boardGame[id--], '-1', id);
-            console.log(array.data.boardGame[id--], '-2', id);
-
-             id = id + 2;
-            if((array.data.boardGame[id--]) === 'X' && (array.data.boardGame[id--] === 'O')){
-                console.log('Ajaaaaaaaaa');
-                array.data.boardGame[id++] = 'X'
-                console.log(id);
-
-            }
-
-
         }else{
+            
+            postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} ).then(async m => {
+               
+                await (
+                    getInitialGame( idGame )
+                    .then(async m => {
+                        setstate({
+                            data: await m.game,
+                            loading: false
+                        });
+                        console.log(m,'m');
+                    })
+                    .catch( error => {
+                        console.log(error);
+                    }));
+
+            }).catch(Error => {
+            console.log(Error);
+            })
+
             array.data.boardGame[id] = 'O';
-            array.data.xPlay = !array.data.xPlay;
-            //item = 'O';
+            //array.data.xPlay = !array.data.xPlay;
 
         }
 
+        
 
 
-        setstate({
-            data: array.data, loading: false});
-
-        console.log(array);
     }
 
     return (
@@ -75,12 +95,25 @@ export const Board= () => {
             <button className="btn btn-primary" onClick={getGame}>
                 Start Game
             </button>
+            
             {
             (!state.loading)
             &&
+            
+
             <div className=" width mx-auto shadow-lg p-3 bg-white rounded">
+                {(state.data.xPlay)
+                    ?(<span className="nav-item nav-link text-info">
+                       Playing White: <strong>Player 1</strong>
+                    </span>)
+
+                    :(<span className="nav-item nav-link text-info">
+                        Playing Black: <strong>Player 2</strong>
+                      </span>)
+                    }
                 <div className="text-center board mx-auto m-2 ">
-                {console.log(array)}
+
+                {console.log(array, 'El map')}
                     {
                     state.data.boardGame.map(
                         (item,i) => (

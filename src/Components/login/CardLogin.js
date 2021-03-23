@@ -1,33 +1,104 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../auth/AuthContext';
 import { useForm } from '../../Hooks/useForm';
+import { types } from '../../types/types';
 import { LoginWithFacebook } from './LoginWithFacebook';
+import firebas from '../../firebase/firebase';
+
+//import firebase from 'firebase'
+
+// import app from "../../firebase/firebaseConfig"
+
+
 
 export const CardLogin = () => {
 
-    const [{email, password}, handleInputChange, reset] = useForm({
+    const history = useHistory();
+
+    //const provider = new firebase.auth.FacebookAuthProvider();
+
+    const { dispatch } = useContext(AuthContext);
+
+    const [condition, setCondition] = useState(false);
+
+    const [{email, password}, handleInputChange] = useForm({
         email: '',
         password: ''
     }); 
 
+    async function signIn(){
+        try{
+            await firebas.login(email, password);
+
+
+        }catch(error){
+            console.error('Error with the autentication with the user', error.message);
+            setCondition(error.message);
+        }
+
+    }
+
+    // async function signInWithFacebook(provider){
+    //     try{
+    //         await firebas.loginFacebook(provider).then( result =>{
+    //             console.log(result);
+    //         }
+    //         )
+
+    //     }catch(error){
+    //         console.error('Error with the autentication with the user', error.message);
+    //         setCondition(error.message);
+    //     }
+
+    // }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(email.trim().length <=1 || email.trim().length <=1){
+        if(email.trim().length <=1 || password.trim().length <=1){
             return;
         }
+        
+        signIn();
 
-        const userLogin = {
-            email,
-            password,
-        }
-        console.log(userLogin);
+        const unsuscribe = firebas.auth.onAuthStateChanged(use =>{
+        if( use ){
+            //Aqui iria el nombre que me devuelve
+            dispatch({
+                type: types.login,
+                payload: {
+                    name: use.displayName
+                }
+            })
+            history.replace('/')
+                }else{
+                    //setUserAutenticated(null);
+                }
+                console.log(unsuscribe,'El unsuscribe');
+            })
 
-        reset();
     }
 
     const responseFacebook = (response) => {
         console.log(response);
+
+        //signInWithFacebook(provider);
+        //Aqui cambiar el nombre por el que me devuelve la vara
+
+
+        dispatch({
+            type: types.login,
+            payload: {
+                name: response.name
+            }
+        })
+        history.replace('/')
+
       }
+
+
 
     return (
 
@@ -62,6 +133,12 @@ export const CardLogin = () => {
                             placeholder="Password"/>
                     </div>
 
+                    {condition &&
+                      <div className="alert alert-danger mt-2" role="alert">
+                        {condition}
+                      </div>
+                    }
+
                     <div className="mb-3">
                         <div className="contact100-form-checkbox">
                         <input
@@ -74,7 +151,7 @@ export const CardLogin = () => {
                         </div>
 
                         <div>
-                        <a className="txt1" href="/"> ¿Don't you have an account? </a>
+                        <Link className="txt1" to="/register"> ¿Don't you have an account? </Link>
                         </div>
 
                         <div className="m-3">

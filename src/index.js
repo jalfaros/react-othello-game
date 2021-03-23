@@ -2,10 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CardLogin } from './Components/login/CardLogin';
-import CardRegister from './Components/register/CardRegister';
+import { OthelloGameApp } from './OthelloGameApp';
+import {  positions, Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+
+
+const options = {
+  position: positions.BOTTOM_RIGHT, 
+  offset: '30px',
+}
 
 ReactDOM.render(
-  <CardLogin />,
+
+  <AlertProvider template={AlertTemplate} {...options}>
+
+    <OthelloGameApp />,
+  </AlertProvider>,
   document.getElementById('root')
 );

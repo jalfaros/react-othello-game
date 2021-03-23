@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { getInitialGame, postClickGame } from '../../helpers/getInitialGame';
-
-import {useFetch} from '../../Hooks/useFetch'
 import { SquareBoard } from './SquareBoard';
 import { useAlert } from 'react-alert'
 
@@ -24,58 +22,48 @@ export const Board= () => {
                 data: await m.game,
                 loading: false
             });
-            console.log(m,'m');
         })
         .catch( error => {
             console.log(error);
         });
-
     }
 
-    const { data } = useFetch(idGame);
+
 
     const alert = useAlert();
 
-    const getGamee = () =>{
+    const handleClick = (id, item) => {
 
-            console.log('Entreeeeeeeeeee');
-            setstate({data: data, loading: false});    }
-
- 
-    const handleClick = (id, item) =>{
-        
-        if(item){
+        if( item ){
             alert.show('No puede jugar en una casilla llena',{
                 type: 'info',
                 timeout: 1000,
             })
             return;
-        }
-
-        postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} )
-            .then(async m => {
+        }    
+        postClickGame( { idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id })
+            .then(async () => {
                 await (
                     getInitialGame( idGame )
-                    .then(async m => {
+                    .then(async g => {
                         setstate({
-                            data: await m.game,
+                            data: await g.game,
                             loading: false
                         });
-                        console.log(m,'m');
+                        
                     })
                     .catch( error => {
                         console.log(error);
                     }));
+
             }).catch(Error => {
                 console.log(Error);
-                })
-
-
-
-
+            })
+        
+  
+        
     }
-
-    return (
+        return (
         <div className="container ">
             <h1>Board Screen</h1>
 
@@ -121,6 +109,8 @@ export const Board= () => {
             </div>
             }
 
-        </div>
+        </div>       
     )
+
+    
 }

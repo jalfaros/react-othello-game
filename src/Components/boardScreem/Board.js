@@ -4,6 +4,9 @@ import { getInitialGame, postClickGame } from '../../helpers/getInitialGame';
 import {useFetch} from '../../Hooks/useFetch'
 import { SquareBoard } from './SquareBoard';
 import { useAlert } from 'react-alert'
+
+
+
 export const Board= () => {
 
     const idGame = 'dIwEQtNLRODq9P1G3SP1';
@@ -49,12 +52,7 @@ export const Board= () => {
             return;
         }
 
-        console.log('xPlay', state.data.xPlay);
-
-        if(state.data.xPlay){
-
-            postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} )
-            
+        postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} )
             .then(async m => {
                 await (
                     getInitialGame( idGame )
@@ -72,46 +70,8 @@ export const Board= () => {
                 console.log(Error);
                 })
 
-                while(state.data.xPlay){
-                    //getGame();
-                    setTimeout( getGamee(), 5000 )
-
-                }
 
 
-        }else{
-            
-            postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} ).then(async m => {
-               
-                await (
-                    getInitialGame( idGame )
-                    .then(async m => {
-                        setstate({
-                            data: await m.game,
-                            loading: false
-                        });
-                        console.log(m,'m');
-                    })
-                    .catch( error => {
-                        console.log(error);
-                    }));
-
-            }).catch(Error => {
-            console.log(Error);
-            })
-
-          
-            //setTimeout( getGamee(), 5000 )
-
-            while(!state.data.xPlay){
-                //getGame();
-                setTimeout( getGamee(), 2000 )
-
-            }
-                
-                
-
-        }
 
     }
 

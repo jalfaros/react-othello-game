@@ -6,28 +6,40 @@ import { SquareBoard } from './SquareBoard';
 import { useAlert } from 'react-alert'
 export const Board= () => {
 
-    const idGame = 'pi6fWLjzlMyg1VglKE2U';
+    const idGame = 'dIwEQtNLRODq9P1G3SP1';
+    
     const [state, setstate] = useState({
         data:[],
         loading: true
     });
 
+    const getGame = () => {
+
+        getInitialGame( idGame )
+        .then(async m => {
+            setstate({
+                data: await m.game,
+                loading: false
+            });
+            console.log(m,'m');
+        })
+        .catch( error => {
+            console.log(error);
+        });
+
+    }
+
     const { data } = useFetch(idGame);
 
     const alert = useAlert();
 
-    let array;
-    const getGame = () =>{
-   
-            setstate({data: data, loading: false});
-            array = data;
-            console.log(array);
-    }
+    const getGamee = () =>{
+
+            console.log('Entreeeeeeeeeee');
+            setstate({data: data, loading: false});    }
 
  
     const handleClick = (id, item) =>{
-
-        array = state;
         
         if(item){
             alert.show('No puede jugar en una casilla llena',{
@@ -60,7 +72,12 @@ export const Board= () => {
                 console.log(Error);
                 })
 
-            array.data.boardGame[id] = 'X';
+                while(state.data.xPlay){
+                    //getGame();
+                    setTimeout( getGamee(), 5000 )
+
+                }
+
 
         }else{
             
@@ -83,13 +100,18 @@ export const Board= () => {
             console.log(Error);
             })
 
-            array.data.boardGame[id] = 'O';
-            //array.data.xPlay = !array.data.xPlay;
+          
+            //setTimeout( getGamee(), 5000 )
+
+            while(!state.data.xPlay){
+                //getGame();
+                setTimeout( getGamee(), 2000 )
+
+            }
+                
+                
 
         }
-
-        
-
 
     }
 
@@ -102,7 +124,7 @@ export const Board= () => {
             </button>
             
             {
-            (!state.loading)
+            (state.data.boardGame)
             &&
             
 
@@ -118,8 +140,8 @@ export const Board= () => {
                     }
                 <div className="text-center board mx-auto m-2 ">
 
-                {console.log(array, 'El map')}
-                    {
+                    {(state.data.boardGame)
+                        &&
                     state.data.boardGame.map(
                         (item,i) => (
 

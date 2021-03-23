@@ -7,7 +7,7 @@ import { useAlert } from 'react-alert'
 
 export const Board= () => {
 
-    const idGame = '0imhdgxZQ39VzRGrGcwa';
+    const idGame = 'uuD5zw0Qd6Zd2T4D4S2x';
 
     const [state, setstate] = useState({
         data:[],
@@ -18,7 +18,6 @@ export const Board= () => {
 
     const GetGame = () => {
 
-        
 
         // setstate({
         //     data: data,

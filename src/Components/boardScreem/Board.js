@@ -1,20 +1,30 @@
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import { getInitialGame, postClickGame } from '../../helpers/getInitialGame';
+
+//import {useFetch} from '../../Hooks/useFetch'
 import { SquareBoard } from './SquareBoard';
 import { useAlert } from 'react-alert'
 
-
-
 export const Board= () => {
 
-    const idGame = 'dIwEQtNLRODq9P1G3SP1';
-    
+    const idGame = '0imhdgxZQ39VzRGrGcwa';
+
     const [state, setstate] = useState({
         data:[],
         loading: true
     });
 
-    const getGame = () => {
+    //const { data, loading } = useFetch(idGame);
+
+    const GetGame = () => {
+
+        
+
+        // setstate({
+        //     data: data,
+        //     loading: loading
+        // });
+        // console.log(data,'m');
 
         getInitialGame( idGame )
         .then(async m => {
@@ -28,46 +38,51 @@ export const Board= () => {
         });
     }
 
+    const myFuntion = async () => {
 
+        GetGame();
+        await setTimeout(async function(){
+            // if(state.data.xPlay == state2){
+            //     console.log('Salido');
+            //     return;
+            // }else{
+            //   myFuntion();
+            // }
+            await GetGame;
+            myFuntion();
+        }, 3000)
+    }
+
+    //const { data } = useFetch(idGame);
 
     const alert = useAlert();
 
-    const handleClick = (id, item) => {
-
-        if( item ){
+    const handleClick = (id, item) =>{
+        
+        if(item){
             alert.show('No puede jugar en una casilla llena',{
                 type: 'info',
                 timeout: 1000,
             })
             return;
-        }    
-        postClickGame( { idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id })
-            .then(async () => {
-                await (
-                    getInitialGame( idGame )
-                    .then(async g => {
-                        setstate({
-                            data: await g.game,
-                            loading: false
-                        });
-                        
-                    })
-                    .catch( error => {
-                        console.log(error);
-                    }));
+        }
 
+        //let test = state.data.xPlay;
+
+        postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} )
+            .then(async m => {  
+                console.log(m,'Jugada realizada');;
             }).catch(Error => {
                 console.log(Error);
             })
-        
-  
-        
-    }
-        return (
+                            
+        }
+
+    return (
         <div className="container ">
             <h1>Board Screen</h1>
 
-            <button className="btn btn-primary" onClick={getGame}>
+            <button className="btn btn-primary" onClick={myFuntion}>
                 Start Game
             </button>
             

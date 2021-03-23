@@ -1,22 +1,30 @@
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import { getInitialGame, postClickGame } from '../../helpers/getInitialGame';
 
-import {useFetch} from '../../Hooks/useFetch'
+//import {useFetch} from '../../Hooks/useFetch'
 import { SquareBoard } from './SquareBoard';
 import { useAlert } from 'react-alert'
 
-
-
 export const Board= () => {
 
-    const idGame = 'dIwEQtNLRODq9P1G3SP1';
-    
+    const idGame = '0imhdgxZQ39VzRGrGcwa';
+
     const [state, setstate] = useState({
         data:[],
         loading: true
     });
 
-    const getGame = () => {
+    //const { data, loading } = useFetch(idGame);
+
+    const GetGame = () => {
+
+        
+
+        // setstate({
+        //     data: data,
+        //     loading: loading
+        // });
+        // console.log(data,'m');
 
         getInitialGame( idGame )
         .then(async m => {
@@ -24,24 +32,31 @@ export const Board= () => {
                 data: await m.game,
                 loading: false
             });
-            console.log(m,'m');
         })
         .catch( error => {
             console.log(error);
         });
-
     }
 
-    const { data } = useFetch(idGame);
+    const myFuntion = async () => {
+
+        GetGame();
+        await setTimeout(async function(){
+            // if(state.data.xPlay == state2){
+            //     console.log('Salido');
+            //     return;
+            // }else{
+            //   myFuntion();
+            // }
+            await GetGame;
+            myFuntion();
+        }, 3000)
+    }
+
+    //const { data } = useFetch(idGame);
 
     const alert = useAlert();
 
-    const getGamee = () =>{
-
-            console.log('Entreeeeeeeeeee');
-            setstate({data: data, loading: false});    }
-
- 
     const handleClick = (id, item) =>{
         
         if(item){
@@ -52,34 +67,22 @@ export const Board= () => {
             return;
         }
 
+        //let test = state.data.xPlay;
+
         postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} )
-            .then(async m => {
-                await (
-                    getInitialGame( idGame )
-                    .then(async m => {
-                        setstate({
-                            data: await m.game,
-                            loading: false
-                        });
-                        console.log(m,'m');
-                    })
-                    .catch( error => {
-                        console.log(error);
-                    }));
+            .then(async m => {  
+                console.log(m,'Jugada realizada');;
             }).catch(Error => {
                 console.log(Error);
-                })
-
-
-
-
-    }
+            })
+                            
+        }
 
     return (
         <div className="container ">
             <h1>Board Screen</h1>
 
-            <button className="btn btn-primary" onClick={getGame}>
+            <button className="btn btn-primary" onClick={myFuntion}>
                 Start Game
             </button>
             
@@ -121,6 +124,8 @@ export const Board= () => {
             </div>
             }
 
-        </div>
+        </div>       
     )
+
+    
 }

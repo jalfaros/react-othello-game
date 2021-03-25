@@ -40,19 +40,6 @@ export const CardLogin = () => {
 
     }
 
-    // async function signInWithFacebook(provider){
-    //     try{
-    //         await firebas.loginFacebook(provider).then( result =>{
-    //             console.log(result);
-    //         }
-    //         )
-
-    //     }catch(error){
-    //         console.error('Error with the autentication with the user', error.message);
-    //         setCondition(error.message);
-    //     }
-
-    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -63,9 +50,11 @@ export const CardLogin = () => {
         
         signIn();
 
-        const unsuscribe = firebas.auth.onAuthStateChanged(use =>{
+        firebas.auth.onAuthStateChanged(use =>{
         if( use ){
             //Aqui iria el nombre que me devuelve
+            localStorage.setItem('id', JSON.stringify(use.uid));
+            console.log(use.uid);
             dispatch({
                 type: types.login,
                 payload: {
@@ -73,19 +62,13 @@ export const CardLogin = () => {
                 }
             })
             history.replace('/')
-                }else{
-                    //setUserAutenticated(null);
                 }
-                console.log(unsuscribe,'El unsuscribe');
             })
 
     }
 
     const responseFacebook = (response) => {
         console.log(response);
-
-        //signInWithFacebook(provider);
-        //Aqui cambiar el nombre por el que me devuelve la vara
 
 
         dispatch({

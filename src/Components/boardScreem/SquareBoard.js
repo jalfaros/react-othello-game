@@ -2,13 +2,9 @@ import React from 'react'
 
 export const SquareBoard = ({id, item ,handleClick, state}) => {
 
-
     return (
         <>
              <div className="square border btn-success" onClick={() => handleClick(id, item)}>
-
-                {/* {console.log(state.data.boardGame)} */}
-
                 
                {(item === 'X' || state.data.boardGame === 'X')
                &&
@@ -24,7 +20,6 @@ export const SquareBoard = ({id, item ,handleClick, state}) => {
                 </span>
                 }
                             
-
             </div>
         </>
     )

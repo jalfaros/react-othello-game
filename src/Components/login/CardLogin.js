@@ -11,8 +11,6 @@ import firebas from '../../firebase/firebase';
 
 // import app from "../../firebase/firebaseConfig"
 
-
-
 export const CardLogin = () => {
 
     const history = useHistory();

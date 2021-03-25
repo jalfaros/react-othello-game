@@ -10,16 +10,14 @@ import { useHistory } from 'react-router';
 
 export const Board= () => {
 
-    
-
-
     const localPlayer = JSON.parse( localStorage.getItem('id') );
-
 
     const idOfGame = useParams().board_idGame;
     const { dispatch } = useContext(AuthContext);
-
     const history = useHistory();
+
+    const [inGame, setInGame] = useState(false);
+
 
     const [state, setState] = useState({
         data:[],
@@ -55,14 +53,15 @@ export const Board= () => {
         });
     }
 
-    const myFuntion = async () => {
-
-       // if(playing) return;
+    const myFuntion = () => {
         
-        await setTimeout(async function(){
+         setTimeout(function(){
 
-            await getGame;
-            await myFuntion();
+             if(playing){
+                 return;
+             }
+             getGame();
+             myFuntion();
         }, 3000)
     }
 
@@ -70,6 +69,12 @@ export const Board= () => {
 
     const handleClick = (id, item) =>{
 
+        if(!inGame){
+            setInGame(true);
+
+            myFuntion();
+        }
+        
         
         if(item){
 
@@ -99,13 +104,11 @@ export const Board= () => {
             })
 
         }
-
-        myFuntion();
-
           
     }
 
     const handleLogOut = () =>{
+
         setPlaying(true);
         dispatch({
             type: types.logout
@@ -122,7 +125,7 @@ export const Board= () => {
 
                 <button 
                     className="btn btn-outline-info m-2" 
-                    onClick={ handleLogOut }
+                    onClick={ () => {setPlaying(true); history.push('/lobby')} }
                     > Lobby
                 </button> 
                 

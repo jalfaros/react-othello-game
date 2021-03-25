@@ -20,11 +20,7 @@ export const SquareBoard = ({id, item, state, localPlayer, idOfGame}) => {
 
             var nextPlayer = '';
             
-            if( localPlayer === state.data.player2 ){
-                nextPlayer = state.data.player1;
-            }else{
-                nextPlayer = state.data.player2;
-            }
+            localPlayer === state.data.player2 ? nextPlayer = state.data.player1 : nextPlayer = state.data.player2;
 
             postClickGame( {idGame: idOfGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id, currentPlayer: nextPlayer} )
             .then(async m => {  

@@ -16,7 +16,7 @@ export const FormRegister = () => {
             timer: 2000,
             buttons: false,
             closeOnClickOutside: false,
-            closeOnEsc: false,
+            closeOnEsc: false
         })
     }
 
@@ -33,9 +33,7 @@ export const FormRegister = () => {
                 await firebase.regist(userName, email, password)
 
                 showSweet( 'success', 'Registered Succesfully' );
-                
-                history.push('/login');
-
+                history.push('/ login');
             }catch(error){
                 console.error('Error creating account', error.message)
                 setCondition(error.message)

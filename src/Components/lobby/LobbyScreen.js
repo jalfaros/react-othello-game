@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { getGamesUser } from '../../helpers/getInitialGame';
 import { LobbyScreenLeft } from './LobbyScreenLeft';
-import { LobbyScreenRigth } from './LobbyScreenRigth';
+//import { LobbyScreenRigth } from './LobbyScreenRigth';
 import { types } from '../../types/types';
 import firebase from '../../firebase/firebase'
 import { AuthContext } from '../../auth/AuthContext';
@@ -36,29 +36,30 @@ export const LobbyScreen = () => {
     return (
         <div className="container">
 
+
             <div className="row shadow-lg p-3 mb-5 bg-white rounded">
             <div className="text-right">
+
+                <div mt-5 style={{ textAlign: 'center' }}>
+                    <h3>Othello game lobby</h3>
+                </div>
                 <button 
-                    className="btn btn-outline-info " 
+                    className="btn btn-outline-danger " 
                     onClick={ handleLogOut }
                     > Logout
                 </button> 
             </div>
                 <LobbyScreenLeft 
-                    setIdGames={ setIdGames }
-                    setSelect ={ setSelect }
-                    idGames   ={ idGames }
-                    idUser    ={ idUser }/>
-
-                <LobbyScreenRigth 
-                    setInputIdGamer= { setInputIdGamer}
-                    setInputIdGame = { setInputIdGame}
-                    setSelect      = { setSelect }
-                    inputIdGame    = { inputIdGame }
-                    inputIdGamer   = { inputIdGamer }
-                    select         = { select }
-            
-                    />
+                    setIdGames          =   { setIdGames }
+                    setSelect           =   { setSelect }
+                    idGames             =   { idGames }
+                    idUser              =   { idUser }
+                    select              =   { select }
+                    setInputIdGamer     =   { setInputIdGamer}
+                    setInputIdGame      =   { setInputIdGame}
+                    inputIdGame         =   { inputIdGame }
+                    inputIdGamer        =   { inputIdGamer }/>
+        
             </div>
         </div>
     )

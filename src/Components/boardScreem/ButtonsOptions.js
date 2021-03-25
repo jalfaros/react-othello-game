@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import firebase from '../../firebase/firebase';
+import { AuthContext } from '../../auth/AuthContext';
 
 import { types } from '../../types/types';
+import { useHistory } from 'react-router';
 
-export const ButtonsOptions = ({history, dispatch}) => {
+export const ButtonsOptions = () => {
+
+    const { dispatch } = useContext(AuthContext);
+    const history      = useHistory();
 
     const handleLogOut = () =>{
 
@@ -25,7 +30,7 @@ export const ButtonsOptions = ({history, dispatch}) => {
                 </button> 
 
                 <button 
-                    className="btn btn-outline-info m-2" 
+                    className="btn btn-outline-danger m-2" 
                     onClick={ handleLogOut }
                     > Logout
                 </button> 

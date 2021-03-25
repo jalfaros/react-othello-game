@@ -39,7 +39,7 @@ export const LobbyScreen = () => {
             <div className="row shadow-lg p-3 mb-5 bg-white rounded">
             <div className="text-right">
                 <button 
-                    className="btn btn-outline-info " 
+                    className="btn btn-outline-danger " 
                     onClick={ handleLogOut }
                     > Logout
                 </button> 

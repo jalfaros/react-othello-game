@@ -1,23 +1,17 @@
-import React, {useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getInitialGame } from '../../helpers/getInitialGame';
 import { useParams } from 'react-router-dom'
 import { SquareBoard } from './SquareBoard';
-import { AuthContext } from '../../auth/AuthContext';
-import { useHistory } from 'react-router';
 import { UsersPlaying } from './UsersPlaying';
 import { ButtonsOptions } from './ButtonsOptions';
 
 export const Board= () => {
 
-    const localPlayer = JSON.parse( localStorage.getItem('id') );
     const idOfGame    = useParams().board_idGame;
 
     const [inGame, setInGame]   = useState(false);
     const [state, setState]     = useState({ data:[], loading: true });
     
-    const { dispatch } = useContext(AuthContext);
-    const history      = useHistory();
-
     useEffect(() => {
         getInitialGame( idOfGame )
         .then(async m => {
@@ -58,7 +52,7 @@ export const Board= () => {
 
     return (
         <>
-            <ButtonsOptions history={history} dispatch={dispatch} />
+            <ButtonsOptions />
 
             <div className="container">
                 {
@@ -78,7 +72,6 @@ export const Board= () => {
                                                 id          ={i}
                                                 item        ={item}
                                                 state       ={state}
-                                                localPlayer ={localPlayer}
                                                 idOfGame    ={idOfGame}
                                             />
                                         )

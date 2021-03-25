@@ -2,8 +2,9 @@ import React from 'react'
 import { useAlert } from 'react-alert';
 import { postClickGame } from '../../helpers/getInitialGame';
 
-export const SquareBoard = ({id, item, state, localPlayer, idOfGame}) => {
+export const SquareBoard = ({id, item, state, idOfGame}) => {
 
+    const localPlayer = JSON.parse( localStorage.getItem('id') );
     const alert = useAlert();
 
     const handleClick = (id, item) =>{
@@ -33,21 +34,20 @@ export const SquareBoard = ({id, item, state, localPlayer, idOfGame}) => {
                 console.log(Error);
             })
         }
-          
     }
 
     return (
         <>
              <div className="square border btn-success" onClick={() => handleClick(id, item)}>
                 
-               {(item === 'X' || state.data.boardGame === 'X')
+               {(item === 'X')
                &&
                <span className="text-white">
                     &#9679;
                 </span>
                 }
 
-                {(item === 'O' || state.data.boardGame === 'O')
+                {(item === 'O')
                &&
                <span className="text-dark">
                     &#9679;

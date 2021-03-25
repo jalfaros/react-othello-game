@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getInitialGame, postClickGame } from "../helpers/getInitialGame";
+import { getGamesUser, getInitialGame, postClickGame, createNewGame } from "../helpers/getInitialGame";
 
 export const useFetch = ( idGame ) => {
 
@@ -29,7 +29,25 @@ export const useFetch = ( idGame ) => {
 
 export const useFetchPost = ( params ) => {
 
-    console.log('En el fecth');
+    const [state, setstate] = useState({
+        data:[],
+        loading: true
+    });
+
+    useEffect(() => {
+       
+        createNewGame( params ).then(async m => {
+            setstate({
+                data: await m,
+                loading: false
+            });
+        })
+    }, [params])
+
+    return state; 
+}
+
+export const useFechNewGame = ( params ) => {
     const [state, setstate] = useState({
         data:[],
         loading: true
@@ -44,6 +62,28 @@ export const useFetchPost = ( params ) => {
             });
         })
     }, [params])
+
+    return state; 
+
+
+}
+
+export const useFechGetGames = ( idUser ) => {
+
+    const [state, setstate] = useState({
+        data:[],
+        loading: true
+    });
+
+    useEffect(() => {
+
+        getGamesUser( idUser ).then( m => {
+            setstate({
+                data: m,
+                loading: false
+            });
+        })
+    }, [idUser])
 
     return state; 
 }

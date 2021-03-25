@@ -1,33 +1,48 @@
-import React, {useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import { getInitialGame, postClickGame } from '../../helpers/getInitialGame';
-
-//import {useFetch} from '../../Hooks/useFetch'
+import { useParams } from 'react-router-dom'
 import { SquareBoard } from './SquareBoard';
 import { useAlert } from 'react-alert'
+import { types } from '../../types/types';
+import firebase from '../../firebase/firebase'
+import { AuthContext } from '../../auth/AuthContext';
+import { useHistory } from 'react-router';
 
 export const Board= () => {
 
-    const idGame = 'uuD5zw0Qd6Zd2T4D4S2x';
+    //const secondPlayer = JSON.stringify(localStorage.getItem('secondPlayer'));
+    const localPlayer = JSON.stringify(localStorage.getItem('id'));
 
-    const [state, setstate] = useState({
+    const idOfGame = useParams().board_idGame;
+    const { dispatch } = useContext(AuthContext);
+
+    const history = useHistory();
+
+    const [state, setState] = useState({
         data:[],
         loading: true
     });
 
-    //const { data, loading } = useFetch(idGame);
+    const [playing, setPlaying] = useState(false)
 
-    const GetGame = () => {
-
-
-        // setstate({
-        //     data: data,
-        //     loading: loading
-        // });
-        // console.log(data,'m');
-
-        getInitialGame( idGame )
+    useEffect(() => {
+        
+        getInitialGame( idOfGame )
         .then(async m => {
-            setstate({
+        
+            setState({
+                data: await m.game,
+                loading: false
+            });
+        })
+       
+    }, [idOfGame])
+
+    const getGame = () => {
+        getInitialGame( idOfGame )
+        .then(async m => {
+            console.log(m);
+            setState({
                 data: await m.game,
                 loading: false
             });
@@ -39,24 +54,19 @@ export const Board= () => {
 
     const myFuntion = async () => {
 
-        GetGame();
+       // if(playing) return;
+        
         await setTimeout(async function(){
-            // if(state.data.xPlay == state2){
-            //     console.log('Salido');
-            //     return;
-            // }else{
-            //   myFuntion();
-            // }
-            await GetGame;
-            myFuntion();
+
+            await getGame;
+            await myFuntion();
         }, 3000)
     }
-
-    //const { data } = useFetch(idGame);
 
     const alert = useAlert();
 
     const handleClick = (id, item) =>{
+
         
         if(item){
             alert.show('No puede jugar en una casilla llena',{
@@ -64,66 +74,92 @@ export const Board= () => {
                 timeout: 1000,
             })
             return;
-        }
+        }else if(state.data.currentPlayer === localPlayer){
 
-        //let test = state.data.xPlay;
-
-        postClickGame( {idGame: idGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id} )
+            postClickGame( {idGame: idOfGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id, currentPlayer: state.data.player2} )
             .then(async m => {  
-                console.log(m,'Jugada realizada');;
+                console.log(m,'Jugada realizada');
             }).catch(Error => {
                 console.log(Error);
             })
-                            
+
         }
 
+        myFuntion();
+
+          
+    }
+
+    const handleLogOut = () =>{
+        setPlaying(true);
+        dispatch({
+            type: types.logout
+        })
+        firebase.logOut();
+        
+
+        history.replace('/login');
+    }
+
     return (
-        <div className="container ">
-            <h1>Board Screen</h1>
+        <>
+            <div className="text-right">
 
-            <button className="btn btn-primary" onClick={myFuntion}>
-                Start Game
-            </button>
-            
-            {
-            (state.data.boardGame)
-            &&
-            
-
-            <div className=" width mx-auto shadow-lg p-3 bg-white rounded">
-                {(state.data.xPlay)
-                    ?(<span className="nav-item nav-link text-info">
-                       Playing White: <strong>Player 1</strong>
-                    </span>)
-
-                    :(<span className="nav-item nav-link text-info">
-                        Playing Black: <strong>Player 2</strong>
-                      </span>)
-                    }
-                <div className="text-center board mx-auto m-2 ">
-
-                    {(state.data.boardGame)
-                        &&
-                    state.data.boardGame.map(
-                        (item,i) => (
-
-                            <SquareBoard 
-                                key     ={i}
-                                id      ={i}
-                                item    ={item}
-                                handleClick = {handleClick}
-                                state   ={state}
-                            />
-                        )
-                    )
-
-                    }
-
-                </div>
+                <button 
+                    className="btn btn-outline-info m-2" 
+                    onClick={ handleLogOut }
+                    > Lobby
+                </button> 
+                
+                <button 
+                    className="btn btn-outline-info m-2" 
+                    onClick={ handleLogOut }
+                    > Logout
+                </button> 
             </div>
-            }
 
-        </div>       
+            <div className="container">
+                {
+                (state.data.boardGame)
+                &&
+                <div className="row">
+                    <div className="col-8 shadow-none p-3 mb-5 bg-light rounded">
+                        <div className="shadow-lg p-3 mb-5 bg-white rounded w-75">
+                            <div className="text-center board mx-auto m-2">
+                                {(state.data.boardGame)
+                                    &&
+                                state.data.boardGame.map(
+                                    (item,i) => (
+
+                                        <SquareBoard 
+                                            key     ={i}
+                                            id      ={i}
+                                            item    ={item}
+                                            handleClick = {handleClick}
+                                            state   ={state}
+                                        />
+                                    )
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-4 shadow-none p-3 mb-5 bg-light rounded">
+                        {(state.data.xPlay)
+                        ?(<span className="nav-item nav-link text-info">
+                            Playing White: <strong>Player 1</strong>
+                        </span>)
+
+                        :(<span className="nav-item nav-link text-info">
+                            Playing Black: <strong>Player 2</strong>
+                        </span>)
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+
+        </>       
     )
 
     

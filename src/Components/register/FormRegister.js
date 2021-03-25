@@ -1,43 +1,47 @@
 import React, { useState } from 'react'
 import { Button, Form,  Row, Col } from 'react-bootstrap'
 import { useHistory } from 'react-router';
-//import { AuthContext } from '../../auth/AuthContext';
-
 import firebase from '../../firebase/firebase';
 import { useForm } from '../../Hooks/useForm';
-//import { types } from '../../types/types';
+import swal from 'sweetalert'
 
 
 export const FormRegister = () => {
 
     const history = useHistory();
 
-    //const { dispatch } = useContext(AuthContext);
+    const showSweet =  async ( icon, title ) => {
+        swal({
+            icon:   icon,
+            title:  title,
+            timer: 2000,
+            buttons: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+        })
+    }
+
+
 
 
     const [condition, setCondition] = useState(false);
     const [{userName, email, password}, handleInputChange] = useForm({
         userName: '',
         email: '',
-        password: ''
+        password: '',
     }); 
 
     async function saveInformation() {
 
-        try{
-            // dispatch({
-            //     type: types.login,
-            //     payload: {
-            //         name: userName
-            //     }
-            // })
-            await firebase.regist(userName, email, password);
+            await firebase.regist(userName, email, password).then( () => {  
+                
+                showSweet( 'success', 'Registered Succesfully' );
+                history.push('/login')
 
-            await history.push('/login')
-        }catch(error){
-            //console.error('Hubo un error al crear el usuario', error);
-            setCondition(error.message);
-        }
+            }).catch( () => {
+                showSweet('error', 'This account already exists');
+            
+            });
     }
 
     const handleBack = () =>{
@@ -90,13 +94,14 @@ export const FormRegister = () => {
 
                     </Form.Control>
                 </Form.Group>
-                    <div className = "mt-5">
+                    <div className = "mt-5" >
                         <Row style = {{ width: "15rem" }}>
                             <Col>
-                                <Button     style = {{ marginRight: "3px" }}
-                                            type="submit"
-                                            variant="primary"
-                                            block>
+                                <Button     
+                                        style = {{ marginRight: "3px" }}
+                                        type="submit"
+                                        variant="primary"
+                                        block>
                                     Register
                                 </Button>
                             </Col>

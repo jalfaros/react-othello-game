@@ -9,7 +9,7 @@ export const CardRegister = () => {
             <h1>Welcome <small> to Othello</small>
             </h1>
             <hr />
-                <Card className="card-conf shadow-lg p-3 mb-5 bg-white rounded">
+                <Card className="shadow-lg p-3 mt-5 mb-5 bg-white rounded">
                     <Card.Body>
                         <Card.Body>
                             <Card.Title>

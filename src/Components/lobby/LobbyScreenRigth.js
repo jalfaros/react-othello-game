@@ -72,7 +72,6 @@ export const LobbyScreenRigth = ({setInputIdGamer, setInputIdGame, setSelect, in
                  type="text" 
                  className="form-control w-75 m-3" 
                  placeholder="Player two id"/>
-                {/* <small className="form-text text-muted">We'll never share your email with anyone else.</small> */}
             </div>
 
             <button onClick={handleCreateRoom} type="button" className="btn btn-success btn-lg btn-block w-75 m-3 mt-3">Add second player</button>
@@ -84,7 +83,6 @@ export const LobbyScreenRigth = ({setInputIdGamer, setInputIdGame, setSelect, in
                 onChange = { inputIdGameOnChange }
                 className="form-control w-75 m-3" 
                 placeholder="Game id"/>
-                {/* <small className="form-text text-muted">We'll never share your email with anyone else.</small> */}
             </div>
 
             <button onClick={handleJoin} type="button" className="btn btn-success btn-lg btn-block w-75 m-3 mt-3">Join or watch game</button>

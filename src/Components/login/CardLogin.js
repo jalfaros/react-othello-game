@@ -28,8 +28,16 @@ export const CardLogin = () => {
 
     async function signIn(){
         try{
-            await firebas.login(email, password);
+            await firebas.login(email, password).then( ({user}) => {
 
+                localStorage.setItem('id', JSON.stringify(user.uid));
+                dispatch({
+                    type: types.login,
+                    payload: {
+                        name: user.displayName
+                    }
+                })
+            })
 
         }catch(error){
             console.error('Error with the autentication with the user', error.message);
@@ -47,36 +55,18 @@ export const CardLogin = () => {
         }
         
         signIn();
-
-        firebas.auth.onAuthStateChanged(use =>{
-        if( use ){
-            //Aqui iria el nombre que me devuelve
-            localStorage.setItem('id', JSON.stringify(use.uid));
-            console.log(use.uid);
-            dispatch({
-                type: types.login,
-                payload: {
-                    name: use.displayName
-                }
-            })
-            history.replace('/')
-                }
-            })
-
     }
 
     const responseFacebook = (response) => {
         console.log(response);
 
-
         dispatch({
             type: types.login,
             payload: {
-                name: response.name
+                name: response.name 
             }
         })
         history.replace('/')
-
       }
 
 

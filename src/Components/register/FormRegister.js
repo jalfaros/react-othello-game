@@ -5,7 +5,6 @@ import firebase from '../../firebase/firebase';
 import { useForm } from '../../Hooks/useForm';
 import swal from 'sweetalert'
 
-
 export const FormRegister = () => {
 
     const history = useHistory();
@@ -21,9 +20,6 @@ export const FormRegister = () => {
         })
     }
 
-
-
-
     const [condition, setCondition] = useState(false);
     const [{userName, email, password}, handleInputChange] = useForm({
         userName: '',
@@ -33,15 +29,20 @@ export const FormRegister = () => {
 
     async function saveInformation() {
 
-            await firebase.regist(userName, email, password).then( () => {  
-                
-                showSweet( 'success', 'Registered Succesfully' );
-                history.push('/login')
+            try{
+                await firebase.regist(userName, email, password)
 
-            }).catch( () => {
+                showSweet( 'success', 'Registered Succesfully' );
+                
+                history.push('/login');
+
+            }catch(error){
+                console.error('Error creating account', error.message)
+                setCondition(error.message)
+
                 showSweet('error', 'This account already exists');
-            
-            });
+
+            }
     }
 
     const handleBack = () =>{

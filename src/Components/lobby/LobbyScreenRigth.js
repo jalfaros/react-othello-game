@@ -75,7 +75,7 @@ export const LobbyScreenRigth = ({setInputIdGamer, setInputIdGame, setSelect, in
                 {/* <small className="form-text text-muted">We'll never share your email with anyone else.</small> */}
             </div>
 
-            <button onClick={handleCreateRoom} type="button" className="btn btn-success btn-lg btn-block w-75 m-3 mt-3">Create or back to game</button>
+            <button onClick={handleCreateRoom} type="button" className="btn btn-success btn-lg btn-block w-75 m-3 mt-3">Add second player</button>
 
             <div className="form-group h-100 mt-5 ">
                 <input 

@@ -10,8 +10,11 @@ import { useHistory } from 'react-router';
 
 export const Board= () => {
 
-    //const secondPlayer = JSON.stringify(localStorage.getItem('secondPlayer'));
-    const localPlayer = JSON.stringify(localStorage.getItem('id'));
+    
+
+
+    const localPlayer = JSON.parse( localStorage.getItem('id') );
+
 
     const idOfGame = useParams().board_idGame;
     const { dispatch } = useContext(AuthContext);
@@ -69,14 +72,26 @@ export const Board= () => {
 
         
         if(item){
+
+            console.log('Current player ', state.data.currentPlayer);
+            console.log('Actual user', localPlayer);
+
             alert.show('No puede jugar en una casilla llena',{
                 type: 'info',
                 timeout: 1000,
             })
             return;
-        }else if(state.data.currentPlayer === localPlayer){
+        }else if( state.data.currentPlayer === localPlayer ){
 
-            postClickGame( {idGame: idOfGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id, currentPlayer: state.data.player2} )
+            var nextPlayer = '';
+            
+            if( localPlayer === state.data.player2 ){
+                nextPlayer = state.data.player1;
+            }else{
+                nextPlayer = state.data.player2;
+            }
+
+            postClickGame( {idGame: idOfGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id, currentPlayer: nextPlayer} )
             .then(async m => {  
                 console.log(m,'Jugada realizada');
             }).catch(Error => {

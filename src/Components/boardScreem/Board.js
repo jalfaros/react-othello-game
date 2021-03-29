@@ -6,7 +6,6 @@ import { UsersPlaying } from './UsersPlaying';
 import { ButtonsOptions } from './ButtonsOptions';
 
 export const Board= () => {
-
     const idOfGame              = useParams().board_idGame;
     const [inGame, setInGame]   = useState(false);
     const [state, setState]     = useState({ data:[{boardGame: []}], loading: true });
@@ -86,7 +85,7 @@ export const Board= () => {
                 :   
                     <div className="m-3 mt-5 shadow-lg p-3 mb-5 bg-white rounded ">
                         <div className="alert alert-warning mt-5 animate__animated animate__backInRigth " style={{ textAlign: 'center' }} >
-                        <span>The id is invalid</span>
+                        <span>The id of the game is invalid</span>
                     </div>
                     </div>
 

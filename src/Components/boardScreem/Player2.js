@@ -1,11 +1,20 @@
 import React from 'react'
 
 export const Player2 = ({state, scoreWhite, scoreBlack}) => {
+    const localPlayer = JSON.parse( localStorage.getItem('id') );
+
     return (
         <>
-            <span className="nav-item nav-link text-info">
+            { state.data.currentPlayer === localPlayer
+            ?
+                <span className="nav-item nav-link text-info">
+                    <h4><strong>It's your turn playing</strong></h4>
+                </span>
+            :
+                <span className="nav-item nav-link text-info">
                 <h4><strong>Playing</strong></h4>
-            </span>
+                </span>
+             }
             <div className="card bg-light  shadow-lg p-3  bg-white rounded container animate__animated animate__backInRight" style={{maxWidth: 18+'rem'}}>
                 <div className="card-header"> <strong>Player 2</strong></div>
                 <div className="card-body bg-dark">
@@ -14,10 +23,17 @@ export const Player2 = ({state, scoreWhite, scoreBlack}) => {
                 </div>
             </div>
 
+            { state.data.currentPlayer !== localPlayer
+            ?
+                <span className="nav-item nav-link text-danger mt-5">
+                    <h4><strong>Waiting your Turn</strong></h4>
+                </span>
+            :
             <span className="nav-item nav-link text-danger mt-5">
                 <h4><strong>Waiting Turn</strong></h4>
             </span>
-            
+            }
+
             <div className="card bg-white p-3 container animate__animated animate__backInRight" style={{maxWidth: 18+'rem'}}>
                 <div className="card-header"> <strong >Player 1</strong></div>
                 <div className="card-body bg-white">

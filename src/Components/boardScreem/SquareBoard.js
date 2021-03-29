@@ -11,9 +11,9 @@ export const SquareBoard = ({id, item, state, idOfGame}) => {
   
         if(item){
 
-            alert.show('No puede jugar en una casilla llena',{
-                type: 'info',
-                timeout: 1000,
+            alert.show('You can not play in this position',{
+                type: 'error',
+                timeout: 3000,
             })
             return;
             

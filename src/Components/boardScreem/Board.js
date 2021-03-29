@@ -1,16 +1,22 @@
 import React, {useEffect, useState } from 'react'
-import { getInitialGame } from '../../helpers/getInitialGame';
+import { editSkipTurn, getInitialGame } from '../../helpers/getInitialGame';
 import { useParams } from 'react-router-dom'
 import { SquareBoard } from './SquareBoard';
 import { UsersPlaying } from './UsersPlaying';
 import { ButtonsOptions } from './ButtonsOptions';
+import { useAlert } from 'react-alert';
+
 
 export const Board= () => {
-    const idOfGame              = useParams().board_idGame;
-    const [inGame, setInGame]   = useState(false);
-    const [state, setState]     = useState({ data:[{boardGame: []}], loading: true });
+    const idOfGame                    = useParams().board_idGame;
+    const idUser                      = JSON.parse(localStorage.getItem('id'));
+    const [inGame, setInGame]         = useState(false);
+    const [state, setState]           = useState({ data:[{boardGame: []}], loading: true });
     const [scoreBlack, setScoreBlack] = useState(2);
     const [scoreWhite, setScoreWhite] = useState(2);
+    const alert                       = useAlert();
+
+
     useEffect(() => {
         getInitialGame( idOfGame )
         .then(async m => {
@@ -47,6 +53,18 @@ export const Board= () => {
         }, 3000)
     }
 
+    const skipTurn = () => {
+        if(idUser !== state.data.currentPlayer) {
+            alert.show('Wait your turn!',{
+                type: 'error',
+                timeout: 3000,
+            })
+            return;}
+    
+        editSkipTurn({idGame: idOfGame, xPlay: state.data.xPlay, currentPlayer: state.data.currentPlayer})
+        .then(response => console.log(response));
+    }
+
     if(!inGame){
         setInGame(true);
 
@@ -62,8 +80,14 @@ export const Board= () => {
                 ?
                     <div className="row">
                         <div className="col-8 shadow-none p-3 mb-5 bg-light rounded">
-                            <div className="shadow-lg p-3 mb-5 bg-white rounded w-75">
+                            <div className="shadow-lg p-3 mb-5 bg-white rounded w-75 mx-auto">
+                            <button onClick={skipTurn} className="btn btn-dark">
+                                Skip turn
+                            <span aria-hidden="true">&raquo;</span>
+                            <span className="sr-only">Skip turn</span>
+                            </button>
                                 <div className="text-center board mx-auto m-2">
+                                    
                                     {(state.data.boardGame)
                                         &&
                                     state.data.boardGame.map(

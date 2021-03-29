@@ -68,6 +68,27 @@ export const useFechNewGame = ( params ) => {
 
 }
 
+export const useFechSkipTurn = (params) => {
+    const [state, setstate] = useState({
+        data:[],
+        loading: true
+    });
+
+    useEffect(() => {
+
+        getGamesUser( params ).then( m => {
+            setstate({
+                data: m,
+                loading: false
+            });
+        })
+    }, [params])
+
+    return state; 
+    
+}
+
+
 export const useFechGetGames = ( idUser ) => {
 
     const [state, setstate] = useState({
@@ -87,4 +108,5 @@ export const useFechGetGames = ( idUser ) => {
 
     return state; 
 }
+
 

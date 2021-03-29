@@ -47,18 +47,25 @@ export const createRoom = async ( params ) => {
 
     return data;
 
+}
 
+export const editSkipTurn = async ( params ) => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ params })
+    };
 
+    const url  = `${urlHero}skipTurn`;
+    const resp = await fetch( url, requestOptions );
+    const data = await resp.json();
+    return data;
 }
 
 export const createNewGame = async ( playerId ) => {
-
     const url  = `${urlHero}newGame?createdBy=${encodeURI(playerId)}`;
-
     const resp = await fetch( url );
-
     const data = await resp.json();
-
     return data;
 }
 

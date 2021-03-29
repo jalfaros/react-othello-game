@@ -25,24 +25,24 @@ export const LobbyScreen = () => {
     return (
         <div className="container card animate__animated animate__backInLeft animate__delay-0s">
             <div className="row shadow-lg p-3 mb-5 bg-white rounded">
-            <div className="text-right">
+                <div className="text-right">
 
-                <div style={{ textAlign: 'center' }}>
-                    <h3>Othello game lobby</h3>
+                    <div style={{ textAlign: 'center' }}>
+                        <h3>Othello game lobby</h3>
+                    </div>
+                    <button 
+                        className="btn btn-outline-danger " 
+                        onClick={ handleLogOut }
+                        > Logout
+                    </button> 
                 </div>
-                <button 
-                    className="btn btn-outline-danger " 
-                    onClick={ handleLogOut }
-                    > Logout
-                </button> 
-            </div>
-                < LobbyScreenLeft 
-                    setSelect           =   { setSelect }
-                    select              =   { select }
-                    setInputIdGamer     =   { setInputIdGamer}
-                    setInputIdGame      =   { setInputIdGame}
-                    inputIdGame         =   { inputIdGame }
-                    inputIdGamer        =   { inputIdGamer }/>
+                    < LobbyScreenLeft 
+                        setSelect           =   { setSelect }
+                        select              =   { select }
+                        setInputIdGamer     =   { setInputIdGamer}
+                        setInputIdGame      =   { setInputIdGame}
+                        inputIdGame         =   { inputIdGame }
+                        inputIdGamer        =   { inputIdGamer }/>
             </div>
         </div>
     )

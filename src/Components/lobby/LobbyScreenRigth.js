@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import { createRoom, getInitialGame } from '../../helpers/getInitialGame';
 
-export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, inputIdGame, inputIdGamer, select }) => {
+export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, select }) => {
 
     const [game, setGame] = useState({ data: [] });
 
@@ -23,10 +23,6 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, i
         setInputIdGamer(e.target.value);
     }
 
-    const inputIdGameOnChange = (e) => {
-        setInputIdGame(e.target.value);
-    }
-
     const handleCreateRoom = async () => {
 
         if (!inputIdGamer || !select) {
@@ -43,18 +39,6 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, i
 
         localStorage.setItem('secondPlayer', JSON.stringify(inputIdGamer));
         console.log(select, inputIdGamer);
-
-    }
-
-    const handleJoin = () => {
-
-        if (!inputIdGame) {
-            console.log('No se ingreso el id');
-        }
-        console.log(inputIdGame);
-        history.push(`/board/${inputIdGame}`)
-
-        setInputIdGame('');
 
     }
 
@@ -89,16 +73,6 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, i
                     
                 }
 
-                <div className="form-group h-100 mt-5 ">
-                    <input
-                        type="text"
-                        value={inputIdGame}
-                        onChange={inputIdGameOnChange}
-                        className="form-control w-75 m-3"
-                        placeholder="Game id" />
-                </div>
-
-                <button onClick={handleJoin} type="button" className="btn btn-info btn-lg btn-block w-75 m-3 mt-3">Join or watch game</button>
 
                 <button type="button" className="btn btn-secondary btn-lg btn-block w-75 m-3 mt-5">Scoreboard</button>
                 {/* <button onClick={handleLogOut} type="button" className="btn btn-danger btn-lg btn-block w-75 m-3 mt-3">Log Out</button> */}

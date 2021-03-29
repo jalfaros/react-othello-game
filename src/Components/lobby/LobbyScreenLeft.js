@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useHistory } from 'react-router';
 import { createNewGame, getGamesUser } from '../../helpers/getInitialGame';
 import { LobbyScreenRigth } from './LobbyScreenRigth';
 
 export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, inputIdGame, inputIdGamer, select}) => {
 
-    const idUser = JSON.parse(localStorage.getItem('id'));
-
+    const idUser  = JSON.parse(localStorage.getItem('id'));
+    const history = useHistory();
     const [idGames, setIdGames]           = useState([]);
     const [selectedGame, setSelectedGame] = useState(false)
     const [copySuccess, setCopySuccess]   = useState('Copy id selected');
@@ -28,26 +29,38 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
         setSelect(e.target.value)
         setSelectedGame( true )
         setCopySuccess('Copy id selected')
-        
     }
 
     const copyToClipboard = (e) =>{
         textAreaRef.current.select();
         document.execCommand('copy');
-        // This is just personal preference.
-        // I prefer to not show the the whole text area selected.
         e.target.focus();
         setCopySuccess('Copied!');
       };
-    
 
+      const handleJoin = () => {
+
+        if (!inputIdGame) {
+            console.log('No se ingreso el id');
+        }
+        console.log(inputIdGame);
+        history.push(`/board/${inputIdGame}`)
+
+        setInputIdGame('');
+
+    }
+
+    const inputIdGameOnChange = (e) => {
+        setInputIdGame(e.target.value);
+    }
+    
     return (
-        <div className = "col shadow-sm p-3 mb-5 bg-white">
+        <>
              <div className = "row">
-                <div className="col shadow-sm p-3 mb-5 bg-white rounded m-2 col card">
-                    <div className="form-group h-40 mt-5">
+                <div className="col shadow-sm p-3 mb-5 bg-white rounded m-2 ">
+                    <div className="form-group h-40 mt-5 text-center">
                         <label>Games</label>
-                        <select multiple onChange={ selectOnChange } className="form-control w-75 m-3 " >
+                        <select multiple onChange={ selectOnChange } className="form-control w-75 m-3 mx-auto" >
                         
                             {(idGames)
                                 &&
@@ -66,27 +79,33 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                         
                         <button type="button"
                         className="btn btn-outline-primary
-                        btn-lg btn-block w-75 m-3 animate__animated animate__backInLeft"
+                        btn-lg btn-block w-75 m-3 mx-auto animate__animated animate__backInLeft"
                         onClick={ copyToClipboard }
                         >{copySuccess}</button>
                     }
-
-
-
                     <button type="button"
                     className="btn btn-success
-                    btn-lg btn-block w-75 m-3 mt-5"
+                    btn-lg btn-block w-75  mx-auto"
                     onClick={handleClickNewGame}
                     >Create game</button>
 
+                    <div className="form-group mt-5 ">
+                        <input
+                            type="text"
+                            value={inputIdGame}
+                            onChange={inputIdGameOnChange}
+                            className="form-control w-75 mx-auto m-3"
+                            placeholder="Game id" />
+                    </div>
 
-                        <textarea
-                        readOnly
-                        className="text-white border-0"
-                        id="element"
-                        ref={textAreaRef}
-                        value={select}
-                        />
+                    <button onClick={handleJoin} type="button" className="btn btn-info btn-lg btn-block w-75 m-3 mx-auto">Join or watch game</button>
+                    <textarea
+                    readOnly
+                    className="text-white border-0"
+                    id="element"
+                    ref={textAreaRef}
+                    value={select}
+                    />
      
 
 
@@ -95,16 +114,14 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                 { selectedGame  &&                        
                         <LobbyScreenRigth 
                         setInputIdGamer= { setInputIdGamer}
-                        setInputIdGame = { setInputIdGame}
                         setSelect      = { setSelect }
-                        inputIdGame    = { inputIdGame }
                         inputIdGamer   = { inputIdGamer }
                         select         = { select }
                         />
                 }
 
             </div>
-        </div>
+        </>
         
        
         

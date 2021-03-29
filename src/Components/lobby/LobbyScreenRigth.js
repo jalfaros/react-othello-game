@@ -52,6 +52,7 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, i
             console.log('No se ingreso el id');
         }
         console.log(inputIdGame);
+        history.push(`/board/${inputIdGame}`)
 
         setInputIdGame('');
 

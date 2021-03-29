@@ -81,6 +81,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
 
 
                         <textarea
+                        readOnly
                         className="text-white border-0"
                         id="element"
                         ref={textAreaRef}

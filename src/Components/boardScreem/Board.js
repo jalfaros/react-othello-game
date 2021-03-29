@@ -27,6 +27,10 @@ export const Board= () => {
         getInitialGame( idOfGame )
         .then(async m => {
             console.log(m,'peticion');
+
+            await setScoreWhite( m.game.score.player1);
+            await setScoreBlack( m.game.score.player2);
+
             setState({
                 data: await m.game,
                 loading: false

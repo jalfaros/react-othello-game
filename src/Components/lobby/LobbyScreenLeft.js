@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createNewGame, getGamesUser } from '../../helpers/getInitialGame';
 import { LobbyScreenRigth } from './LobbyScreenRigth';
 
@@ -8,6 +8,9 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
 
     const [idGames, setIdGames]           = useState([]);
     const [selectedGame, setSelectedGame] = useState(false)
+    const [copySuccess, setCopySuccess]   = useState('Copy id selected');
+
+    const textAreaRef = useRef(null);
 
     useEffect(() => {
         getGamesUser( idUser ).then( m => {
@@ -24,14 +27,25 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
     const selectOnChange = (e) => {
         setSelect(e.target.value)
         setSelectedGame( true )
+        setCopySuccess('Copy id selected')
         
     }
 
+    const copyToClipboard = (e) =>{
+        textAreaRef.current.select();
+        document.execCommand('copy');
+        // This is just personal preference.
+        // I prefer to not show the the whole text area selected.
+        e.target.focus();
+        setCopySuccess('Copied!');
+      };
+    
+
     return (
-        <div className = "col shadow-sm p-3 mb-5 bg-white rounded m-2">
+        <div className = "col shadow-sm p-3 mb-5 bg-white">
              <div className = "row">
-                <div className="col shadow-sm p-3 mb-5 bg-white rounded m-2 col card animate__animated animate__backInDown animate__delay-1s">
-                    <div className="form-group h-50 mt-5">
+                <div className="col shadow-sm p-3 mb-5 bg-white rounded m-2 col card">
+                    <div className="form-group h-40 mt-5">
                         <label>Games</label>
                         <select multiple onChange={ selectOnChange } className="form-control w-75 m-3 " >
                         
@@ -45,11 +59,35 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                         </select>
                     </div>
 
+
+            
+                    {
+                        document.queryCommandSupported('copy') && select &&
+                        
+                        <button type="button"
+                        className="btn btn-outline-primary
+                        btn-lg btn-block w-75 m-3 animate__animated animate__backInLeft"
+                        onClick={ copyToClipboard }
+                        >{copySuccess}</button>
+                    }
+
+
+
                     <button type="button"
                     className="btn btn-success
                     btn-lg btn-block w-75 m-3 mt-5"
                     onClick={handleClickNewGame}
                     >Create game</button>
+
+
+                        <textarea
+                        className="text-white border-0"
+                        id="element"
+                        ref={textAreaRef}
+                        value={select}
+                        />
+     
+
 
                 </div>
                 

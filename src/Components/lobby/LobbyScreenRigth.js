@@ -6,8 +6,6 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, i
 
     const [game, setGame] = useState({ data: [] });
 
-
-
     useEffect(() => {
 
         if (select) {
@@ -18,9 +16,6 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, i
             });
         }
     }, [select])
-
-
-
 
     const history = useHistory();
 
@@ -63,7 +58,7 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, i
     }
 
     return (
-        <div className="col shadow-sm p-3 mb-5 bg-white rounded m-2">
+        <div className="col shadow-sm p-3 mb-5 bg-white rounded m-2 animate__animated animate__backInDown ">
 
             <div>
 
@@ -83,9 +78,14 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setInputIdGame, setSelect, i
                     </div>
                     :
 
-                    <div className="alert alert-primary mt-5" style={{ textAlign: 'center' }} >
+                    <div className="alert alert-primary mt-5 animate__animated animate__backInRigth" style={{ textAlign: 'center' }} >
                         <span>Id jugador #2:</span> <strong>{ game.data.player2 }</strong>
+
+                        <button className=" btn  btn-outline-primary m-3 " onClick={() => history.push(`/board/${select}`)}>
+                            Continue...
+                        </button>
                     </div>
+                    
                 }
 
                 <div className="form-group h-100 mt-5 ">

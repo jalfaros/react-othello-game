@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { getGamesUser } from '../../helpers/getInitialGame';
+import React, { useContext, useState } from 'react'
 import { LobbyScreenLeft } from './LobbyScreenLeft';
-//import { LobbyScreenRigth } from './LobbyScreenRigth';
 import { types } from '../../types/types';
 import firebase from '../../firebase/firebase'
 import { AuthContext } from '../../auth/AuthContext';
@@ -12,18 +10,9 @@ export const LobbyScreen = () => {
     const { dispatch } = useContext(AuthContext);
     const history = useHistory();
 
-    const [idGames, setIdGames]           = useState([]);
     const [inputIdGamer, setInputIdGamer] = useState('');
     const [inputIdGame, setInputIdGame]   = useState('');
     const [select, setSelect]             = useState('');
-
-    const idUser = JSON.parse(localStorage.getItem('id'));
-
-    useEffect(() => {
-        getGamesUser( idUser ).then( m => {
-            setIdGames(m.games);
-        })
-    }, [idUser])
 
     const handleLogOut = () =>{
         dispatch({
@@ -34,13 +23,11 @@ export const LobbyScreen = () => {
     }
 
     return (
-        <div className="container">
-
-
+        <div className="container card animate__animated animate__backInLeft animate__delay-0s">
             <div className="row shadow-lg p-3 mb-5 bg-white rounded">
             <div className="text-right">
 
-                <div mt-5 style={{ textAlign: 'center' }}>
+                <div style={{ textAlign: 'center' }}>
                     <h3>Othello game lobby</h3>
                 </div>
                 <button 
@@ -49,17 +36,13 @@ export const LobbyScreen = () => {
                     > Logout
                 </button> 
             </div>
-                <LobbyScreenLeft 
-                    setIdGames          =   { setIdGames }
+                < LobbyScreenLeft 
                     setSelect           =   { setSelect }
-                    idGames             =   { idGames }
-                    idUser              =   { idUser }
                     select              =   { select }
                     setInputIdGamer     =   { setInputIdGamer}
                     setInputIdGame      =   { setInputIdGame}
                     inputIdGame         =   { inputIdGame }
                     inputIdGamer        =   { inputIdGamer }/>
-        
             </div>
         </div>
     )

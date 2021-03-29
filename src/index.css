@@ -22,6 +22,9 @@ code {
 
 }
 
+.disabled {
+  background: #ccc;
+}
 
 /* para hacer responsive el login */
 .widthLogin {

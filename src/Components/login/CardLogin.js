@@ -77,7 +77,7 @@ export const CardLogin = () => {
             <h1>Welcome <small> to Othello</small>
             </h1>
             <hr />
-            <div className="widthLogin shadow mb-5 bg-white rounded  p-3 text-center mx-auto m-5 widthLogin">
+            <div className=" shadow mb-5 bg-white rounded  p-3 text-center mx-auto m-5 widthLogin">
                 <form onSubmit={ handleSubmit }>
                     <span className="form-label">
                         <h3>Login</h3>

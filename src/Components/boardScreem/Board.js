@@ -1,23 +1,17 @@
-import React, {useContext, useEffect, useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { getInitialGame } from '../../helpers/getInitialGame';
 import { useParams } from 'react-router-dom'
 import { SquareBoard } from './SquareBoard';
-import { AuthContext } from '../../auth/AuthContext';
-import { useHistory } from 'react-router';
 import { UsersPlaying } from './UsersPlaying';
 import { ButtonsOptions } from './ButtonsOptions';
 
 export const Board= () => {
 
-    const localPlayer = JSON.parse( localStorage.getItem('id') );
-    const idOfGame    = useParams().board_idGame;
-
+    const idOfGame              = useParams().board_idGame;
     const [inGame, setInGame]   = useState(false);
     const [state, setState]     = useState({ data:[], loading: true });
-    
-    const { dispatch } = useContext(AuthContext);
-    const history      = useHistory();
-
+    const [scoreBlack, setScoreBlack] = useState(2);
+    const [scoreWhite, setScoreWhite] = useState(2);
     useEffect(() => {
         getInitialGame( idOfGame )
         .then(async m => {
@@ -32,7 +26,7 @@ export const Board= () => {
     const getGame = () => {
         getInitialGame( idOfGame )
         .then(async m => {
-            console.log(m);
+            console.log(m,'peticion');
             setState({
                 data: await m.game,
                 loading: false
@@ -58,9 +52,9 @@ export const Board= () => {
 
     return (
         <>
-            <ButtonsOptions history={history} dispatch={dispatch} />
+            <ButtonsOptions />
 
-            <div className="container">
+            <div className="container animate__animated animate__backInDown animate__delay-0s">
                 {
                     (state.data.boardGame)
                     &&
@@ -72,13 +66,11 @@ export const Board= () => {
                                         &&
                                     state.data.boardGame.map(
                                         (item,i) => (
-
                                             <SquareBoard 
                                                 key         ={i}
                                                 id          ={i}
                                                 item        ={item}
                                                 state       ={state}
-                                                localPlayer ={localPlayer}
                                                 idOfGame    ={idOfGame}
                                             />
                                         )
@@ -86,7 +78,7 @@ export const Board= () => {
                                 </div>
                             </div>
                         </div>
-                        <UsersPlaying state={state}/>                   
+                        <UsersPlaying state={state} scoreBlack={scoreBlack} scoreWhite={scoreWhite}/>                   
                     </div>
                 }
             </div>

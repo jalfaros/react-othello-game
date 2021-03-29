@@ -14,6 +14,7 @@ export const Board= () => {
     const [state, setState]           = useState({ data:[{boardGame: []}], loading: true });
     const [scoreBlack, setScoreBlack] = useState(2);
     const [scoreWhite, setScoreWhite] = useState(2);
+    const [nextPlayer, setNextPlayer] = useState('');
     const alert                       = useAlert();
 
 
@@ -53,15 +54,19 @@ export const Board= () => {
         }, 3000)
     }
 
-    const skipTurn = () => {
+    const skipTurn = async() => {
         if(idUser !== state.data.currentPlayer) {
             alert.show('Wait your turn!',{
                 type: 'error',
                 timeout: 3000,
             })
             return;}
-    
-        editSkipTurn({idGame: idOfGame, xPlay: state.data.xPlay, currentPlayer: state.data.currentPlayer})
+        
+        await state.data.player1 === state.data.currentPlayer ? setNextPlayer(state.data.player2) : setNextPlayer(state.data.player1);
+        // console.log(state.data.player2, 'el state');
+        // console.log(nextPlayer);
+        // console.log(nextPlayer, 'nextPlayer');
+        editSkipTurn({idGame: idOfGame, xPlay: !state.data.xPlay, currentPlayer: nextPlayer})
         .then(response => console.log(response));
     }
 

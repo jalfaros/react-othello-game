@@ -4,10 +4,19 @@ import { postClickGame } from '../../helpers/getInitialGame';
 
 export const SquareBoard = ({id, item, state, idOfGame}) => {
 
+    const idUser      = JSON.parse(localStorage.getItem('id'));
     const localPlayer = JSON.parse( localStorage.getItem('id') );
     const alert       = useAlert();
 
     const handleClick = (id, item) =>{
+
+        if(idUser !== state.data.currentPlayer) {
+            alert.show('Wait your turn!',{
+                type: 'error',
+                timeout: 3000,
+            })
+            return;}
+        
   
         if(item){
 

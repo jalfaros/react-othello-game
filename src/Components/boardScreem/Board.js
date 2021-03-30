@@ -62,8 +62,6 @@ export const Board= () => {
             })
             return;}
         
-        //await state.data.player1 === state.data.currentPlayer ? setNextPlayer(state.data.player2) : setNextPlayer(state.data.player1);
-
         var nextPlayer = '';
             
         state.data.currentPlayer === state.data.player2 ? nextPlayer = state.data.player1 : nextPlayer = state.data.player2;

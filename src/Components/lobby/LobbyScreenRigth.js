@@ -54,10 +54,6 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
 
             <div>
 
-                <div className="text-right">
-                    <strong>My id:</strong> <samp>{JSON.parse(localStorage.getItem('id'))}</samp>
-                </div>
-
                 {game.data && game.data.player2 === null ?
                     <div className="form-group h-100 mt-5 animate__animated animate__backInRigth">
                         <input

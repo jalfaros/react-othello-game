@@ -22,6 +22,11 @@ code {
 
 }
 
+.position {
+  position: relative;
+  right: -60px;
+}
+
 .disabled {
   background: #ccc;
 }
@@ -136,4 +141,5 @@ code {
   .width {
     width: 200px;
   }
+
 }

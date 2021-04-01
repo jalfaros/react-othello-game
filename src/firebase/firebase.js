@@ -20,10 +20,12 @@ class Firebase {
     async regist(userName, email, password) {
         const newUser = await this.auth.createUserWithEmailAndPassword(email, password);
 
-        return await newUser.user.updateProfile({
+        //console.log( newUser);
+        await newUser.user.updateProfile({
             displayName: userName
         })
 
+        return newUser;
     }
 
     //Inicia sesion un usuario

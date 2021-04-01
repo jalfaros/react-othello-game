@@ -87,9 +87,9 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                             :
 
 
-                                <div className="container" style={{ width: '50rem' }}>
+                                <div className="container w-75 mx-auto" style={{ width: '50rem' }}>
 
-                                    <div className="alert alert-dark mt-5" style={{ textAlign: 'center' }} >
+                                    <div className="alert alert-dark mt-5 " style={{ textAlign: 'center' }} >
                                         You don´t have games!
                                     </div>
 

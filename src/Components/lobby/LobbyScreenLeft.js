@@ -13,10 +13,14 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
 
     const textAreaRef = useRef(null);
 
-    useEffect(() => {
+    const getIdGames = () => {
         getGamesUser(idUser).then(m => {
             setIdGames(m.games);
         })
+    }
+
+    useEffect(() => {
+        getIdGames()
     }, [idUser])
 
     const handleClickNewGame = () => {
@@ -65,6 +69,10 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                     </div>
 
                     <div className="form-group h-40 mt-5 text-center">
+
+                        <button className=" btn  btn-outline-primary w-75 border-0 " onClick={getIdGames}>
+                            refresh...
+                        </button>
 
                         {
                             (idGames.length) ?

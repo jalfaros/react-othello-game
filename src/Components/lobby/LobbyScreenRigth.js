@@ -68,7 +68,7 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
 
                    (idUser === game.data.player2.playerId && idUser !== game.data.player1.playerId?
                        <div className="alert alert-primary mt-5 animate__animated animate__backInRigth" style={{ textAlign: 'center' }} >
-                            <span>Game of: </span> <strong>{ game.data.player1.playerName }</strong>
+                            <span>Game created by: </span> <strong>{ game.data.player1.playerName }</strong>
                             <p></p>
                             <span>Player id:</span> <strong>{ game.data.player1.playerId }</strong>
                             <p></p>

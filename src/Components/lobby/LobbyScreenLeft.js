@@ -71,7 +71,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                     <div className="form-group h-40 mt-5 text-center">
 
                         <button className=" btn  btn-outline-primary w-75 border-0 " onClick={getIdGames}>
-                            refresh...
+                            <i className="bi bi-arrow-repeat"></i>
                         </button>
 
                         {
@@ -88,7 +88,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                                 </select>
 
 
-                            :
+                                :
 
 
                                 <div className="container w-75 mx-auto" style={{ width: '50rem' }}>
@@ -103,8 +103,13 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
 
                     </div>
 
+                    <button type="button"
+                        className="btn btn-outline-success
+                    btn-lg btn-block w-75  mx-auto"
+                        onClick={handleClickNewGame}
+                    >Create game</button>
 
-
+                    
                     {
                         document.queryCommandSupported('copy') && select &&
 
@@ -114,11 +119,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                             onClick={copyToClipboard}
                         >{copySuccess}</button>
                     }
-                    <button type="button"
-                        className="btn btn-outline-success
-                    btn-lg btn-block w-75  mx-auto"
-                        onClick={handleClickNewGame}
-                    >Create game</button>
+
 
                     <div className="form-group mt-5 ">
                         <input
@@ -129,7 +130,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                             placeholder="Game id" />
                     </div>
 
-                    <button onClick={handleJoin} type="button" className="btn btn-info btn-lg btn-block w-75 m-3 mx-auto">Join or watch game</button>
+                    <button onClick={handleJoin} type="button" className="btn btn-info btn-lg btn-block w-75 m-3 mx-auto">Watch Game</button>
                     <textarea
                         readOnly
                         className="text-white border-0"

@@ -12,6 +12,23 @@ export const getInitialGame = async ( idGame ) => {
     return data;
 }
 
+export const savePlayerInfo = async ( params ) => {
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ params })
+    };
+
+    const url  = `${urlHero}savePlayerInformation`;
+
+    const resp = await fetch( url, requestOptions );
+
+    const data = await resp.json();
+
+    return data;
+
+}
 
 
 export const postClickGame = async ( params ) => {

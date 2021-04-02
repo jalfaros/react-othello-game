@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import firebase from '../../firebase/firebase';
 import { useForm } from '../../Hooks/useForm';
 import swal from 'sweetalert'
+import { savePlayerInfo } from '../../helpers/getInitialGame';
 
 export const FormRegister = () => {
 
@@ -32,7 +33,7 @@ export const FormRegister = () => {
             try{
                 const test = await firebase.regist(userName, email, password); 
 
-                console.log(test);
+                savePlayerInfo({uid: test.user.uid, displayName: test.user.displayName, email: test.user.email}).then();
 
                 showSweet( 'success', 'Registered Succesfully' );
                 

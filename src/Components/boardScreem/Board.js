@@ -168,7 +168,7 @@ export const Board= () => {
                                 </div>
 
                                 <div className ="shadow-lg p-3 mt-3  bg-white rounded container">
-                                    <span className="nav-item nav-link text-info">
+                                    <span className="nav-item nav-link text-danger">
                                     <h4><strong>Loser</strong></h4>
                                     </span>
                                     

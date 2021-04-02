@@ -22,10 +22,6 @@ code {
 
 }
 
-.position {
-  position: relative;
-  right: -60px;
-}
 
 .disabled {
   background: #ccc;
@@ -89,6 +85,11 @@ code {
 
 @media only screen and (max-width: 767px) {
 
+  /* .position {
+    position: relative;
+    right: -30px;
+  } */
+
   .widthLogin {
     width: 85%;
   }
@@ -115,10 +116,15 @@ code {
   }
 }
 
-@media only screen and (max-width: 530px) {
+@media only screen and (max-width: 540px) {
+
+  /* .position {
+    position: absolute;
+    right: 100px;
+  } */
 
   .widthLogin {
-    width: 85%;
+    width: 100%;
   }
 
   .board {
@@ -142,4 +148,15 @@ code {
     width: 200px;
   }
 
+}
+
+@media only screen and (max-width: 530px) {
+  /* .position {
+    position: absolute;
+    right: 55px;
+  } */
+
+  .widthLogin {
+    width: 100%;
+  }
 }

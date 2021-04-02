@@ -73,8 +73,7 @@ export const CardLogin = () => {
 
     return (
 
-        <div className="text-center m-5 ml-5 position">
-            
+        <div className="text-center container">
             <h1>Welcome <small> to Othello</small>
             </h1>
             <hr />

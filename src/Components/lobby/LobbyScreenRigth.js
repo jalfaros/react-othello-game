@@ -4,10 +4,8 @@ import { createRoom, getInitialGame } from '../../helpers/getInitialGame';
 
 export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, select }) => {
 
-    const [game, setGame] = useState({ data: [] });
+    const [game, setGame] = useState({ data:{player2:{playerId: null}}});
     const idUser          = JSON.parse(localStorage.getItem('id'));
-
-
     useEffect(() => {
 
         if (select) {
@@ -54,7 +52,7 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
 
             <div>
 
-                {game.data && game.data.player2 === null ?
+                {game.data && game.data.player2.playerId === null ?
                     <div className="form-group h-100 mt-5 animate__animated animate__backInRigth">
                         <input
                             value={inputIdGamer}
@@ -68,19 +66,47 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
                     </div>
                     :
 
+                   (idUser === game.data.player2.playerId && idUser !== game.data.player1.playerId?
+                       <div className="alert alert-primary mt-5 animate__animated animate__backInRigth" style={{ textAlign: 'center' }} >
+                            <span>Game of: </span> <strong>{ game.data.player1.playerName }</strong>
+                            <p></p>
+                            <span>Player id:</span> <strong>{ game.data.player1.playerId }</strong>
+                            <p></p>
+
+                            <button className=" btn  btn-outline-primary m-3 border-0 mx-auto" onClick={() => history.push(`/board/${select}`)}>
+                                Continue...
+                            </button>
+                        </div>
+                    
+                    :
+
+                    (idUser === game.data.player1.playerId && idUser === game.data.player2.playerId?
+                        <div className="alert alert-primary mt-5 animate__animated animate__backInRigth" style={{ textAlign: 'center' }} >
+                             <strong>Play alone</strong>
+                             <p></p>
+                             <span>Player id:</span> <strong>{ game.data.player1.playerId }</strong>
+                             <p></p>
+ 
+                             <button className=" btn  btn-outline-primary m-3 border-0 mx-auto" onClick={() => history.push(`/board/${select}`)}>
+                                 Continue...
+                             </button>
+                         </div>
+                     
+                     :
+                    
                     <div className="alert alert-primary mt-5 animate__animated animate__backInRigth" style={{ textAlign: 'center' }} >
-                        <span>Id jugador #2:</span> <strong>{ game.data.player2 }</strong>
+                        <span>Player id #2:</span> <strong>{ game.data.player2.playerId }</strong>
+                        <p></p>
+                        <span>Player name:</span> <strong>{ game.data.player2.playerName }</strong>
+                        <p></p>
 
                         <button className=" btn  btn-outline-primary m-3 border-0 mx-auto" onClick={() => history.push(`/board/${select}`)}>
                             Continue...
                         </button>
-                    </div>
-                    
+                    </div>)
+                    )    
                 }
-
-
                 <button type="button" className="btn btn-secondary btn-lg btn-block w-75 m-3 mt-5 mx-auto">Scoreboard</button>
-                {/* <button onClick={handleLogOut} type="button" className="btn btn-danger btn-lg btn-block w-75 m-3 mt-3">Log Out</button> */}
             </div>
         </div>
     )

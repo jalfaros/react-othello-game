@@ -33,7 +33,6 @@ export const Board= () => {
         getInitialGame( idOfGame )
         .then(async m => {
             console.log(m,'peticion');
-
             await setScoreWhite( m.game.score.player1);
             await setScoreBlack( m.game.score.player2);
 
@@ -64,7 +63,7 @@ export const Board= () => {
         
         var nextPlayer = '';
             
-        state.data.currentPlayer === state.data.player2 ? nextPlayer = state.data.player1 : nextPlayer = state.data.player2;
+        state.data.currentPlayer === state.data.player2.playerId ? nextPlayer = state.data.player1.playerId : nextPlayer = state.data.player2.playerId;
 
 
         editSkipTurn({idGame: idOfGame, xPlay: !state.data.xPlay, currentPlayer: nextPlayer})
@@ -82,7 +81,7 @@ export const Board= () => {
             <ButtonsOptions />
 
             <div className="container animate__animated animate__backInDown animate__delay-0s">
-                {(state.data.boardGame !== undefined)
+                {(state.data.boardGame !== undefined && !state.data.endedGame)
                 ?
                     <div className="row">
                         <div className="col-8 shadow-none p-3 mb-5 bg-light rounded">
@@ -113,11 +112,117 @@ export const Board= () => {
                         <UsersPlaying state={state} scoreBlack={scoreBlack} scoreWhite={scoreWhite}/>                   
                     </div>
                 :   
-                    <div className="m-3 mt-5 shadow-lg p-3 mb-5 bg-white rounded ">
-                        <div className="alert alert-warning mt-5 animate__animated animate__backInRigth " style={{ textAlign: 'center' }} >
-                        <span>The id of the game is invalid</span>
+                    (state.data.endedGame ?
+                        (scoreWhite > scoreBlack ?
+                        <div className = "shadow-lg p-3  bg-white rounded container">
+                            <h3>Game over</h3>
+                            <div className ="shadow-lg p-3  bg-white rounded container">
+                                <span className="nav-item nav-link text-info">
+                                <h4><strong>Winner</strong></h4>
+                                </span>
+
+                                <div className="card bg-light mx-auto  shadow-lg p-3  bg-white rounded container animate__animated animate__backInRight " style={{maxWidth: 18+'rem'}}>
+                                    <div className="card-header"> Player1: <strong>{state.data.player1.playerName}</strong></div>
+                                    <div className="card-body bg-white">
+                                        <h5 className="card-title"><strong>White</strong><span className="text-black">&#9679; </span></h5>
+                                        <p className="card-text">Score: {scoreWhite}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className ="shadow-lg p-3 mt-3  bg-white rounded container">
+                                <span className="nav-item nav-link text-info">
+                                <h4><strong>Loser</strong></h4>
+                                </span>
+
+                                <div className="card bg-light mx-auto  shadow-lg p-3  bg-white rounded container animate__animated animate__backInRight " style={{maxWidth: 18+'rem'}}>
+                                    <div className="card-header"> Player2: <strong>{state.data.player2.playerName}</strong></div>
+                                        <div className="card-body bg-dark">
+                                            <h5 className="card-title text-white"><strong>Black</strong><span className="text-white">&#9679; </span></h5>
+                                            <p className="card-text text-white">Score: {scoreBlack}</p>
+                                        </div>                          
+                                </div>
+
+                            </div>
+
+                        </div>
+                        :
+                        (scoreWhite < scoreBlack ?
+                        
+                            <div className = "shadow-lg p-3  bg-white rounded container">
+
+                                <div className ="shadow-lg p-3  bg-white rounded container">
+                                    <span className="nav-item nav-link text-info">
+                                    <h4><strong>Winner</strong></h4>
+                                    </span>
+
+                                    <div className="card bg-light mx-auto  shadow-lg p-3  bg-white rounded container animate__animated animate__backInRight " style={{maxWidth: 18+'rem'}}>
+                                        <div className="card-header"> Player2: <strong>{state.data.player2.playerName}</strong></div>
+                                            <div className="card-body bg-dark">
+                                                <h5 className="card-title text-white"><strong>Black</strong><span className="text-white">&#9679; </span></h5>
+                                                <p className="card-text text-white">Score: {scoreBlack}</p>
+                                            </div>                          
+                                    </div>
+
+                                </div>
+
+                                <div className ="shadow-lg p-3 mt-3  bg-white rounded container">
+                                    <span className="nav-item nav-link text-info">
+                                    <h4><strong>Loser</strong></h4>
+                                    </span>
+                                    
+                                    <div className="card bg-light mx-auto  shadow-lg p-3  bg-white rounded container animate__animated animate__backInRight " style={{maxWidth: 18+'rem'}}>
+                                        <div className="card-header"> Player1: <strong>{state.data.player1.playerName}</strong></div>
+                                        <div className="card-body bg-white">
+                                            <h5 className="card-title"><strong>White</strong><span className="text-black">&#9679; </span></h5>
+                                            <p className="card-text">Score: {scoreWhite}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            
+                        :
+
+                        <div className = "shadow-lg p-3  bg-white rounded container">
+                            <span className="nav-item nav-link text-info">
+                                <h4><strong>Ties</strong></h4>
+                            </span>
+                        <div className ="shadow-lg p-3  bg-white rounded container card-group">
+
+                            <div className="card bg-light m-3 mx-auto  shadow-lg p-3  bg-white rounded container animate__animated animate__backInRight " style={{maxWidth: 18+'rem'}}>
+                                <div className="card-header"> Player2: <strong>{state.data.player2.playerName}</strong></div>
+                                    <div className="card-body bg-dark">
+                                        <h5 className="card-title text-white"><strong>Black</strong><span className="text-white">&#9679; </span></h5>
+                                        <p className="card-text text-white">Score: {scoreBlack}</p>
+                                    </div>                          
+                            </div>
+
+                            <div className="card bg-light m-3 mx-auto  shadow-lg p-3  bg-white rounded container animate__animated animate__backInRight " style={{maxWidth: 18+'rem'}}>
+                                <div className="card-header"> Player1: <strong>{state.data.player1.playerName}</strong></div>
+                                <div className="card-body bg-white">
+                                    <h5 className="card-title"><strong>White</strong><span className="text-black">&#9679; </span></h5>
+                                    <p className="card-text">Score: {scoreWhite}</p>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
-                    </div>
+                        
+                        )
+                        )
+
+                    :
+                    
+                        <div className="m-3 mt-5 shadow-lg p-3 mb-5 bg-white rounded ">
+                            <div className="alert alert-warning mt-5 animate__animated animate__backInRigth " style={{ textAlign: 'center' }} >
+                            <span>The id of the game is invalid</span>
+                            </div>
+                        </div>
+                    )
 
                 }
 

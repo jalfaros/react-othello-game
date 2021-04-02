@@ -58,20 +58,16 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
         <>
             <div className="row">
 
-
-
                 <div className="col shadow-sm p-3 mb-5 bg-white rounded m-2 ">
 
                     <div className="text-left">
                         <strong>My id:</strong> <samp>{JSON.parse(localStorage.getItem('id'))}</samp>
                     </div>
 
-
                     <div className="form-group h-40 mt-5 text-center">
 
-
                         {
-                            (idGames.length !== 0) ?
+                            (idGames.length) ?
                                 <select multiple onChange={selectOnChange} className="form-control w-75 m-3 mx-auto" >
 
                                     {

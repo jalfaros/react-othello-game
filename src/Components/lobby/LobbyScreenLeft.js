@@ -20,7 +20,9 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
     }
 
     useEffect(() => {
-        getIdGames()
+        getGamesUser(idUser).then(m => {
+            setIdGames(m.games);
+        })
     }, [idUser])
 
     const handleClickNewGame = () => {

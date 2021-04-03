@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
-import { createRoom, getInitialGame } from '../../helpers/getInitialGame';
+import { createRoom, getAllPlayers, getInitialGame } from '../../helpers/getInitialGame';
+import { useAlert } from 'react-alert';
+
 
 export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, select }) => {
 
-    const [game, setGame] = useState({ data:{player2:{playerId: null}}});
-    const idUser          = JSON.parse(localStorage.getItem('id'));
+    const [game, setGame]   = useState({ data:{player2:{playerId: null}}});
+    const idUser            = JSON.parse(localStorage.getItem('id'));
+    const [users, setUsers] = useState([]);
+    const alert             = useAlert();
+
     useEffect(() => {
 
         if (select) {
@@ -14,6 +19,8 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
                     data: response.game
                 })
             });
+
+            getAllPlayers().then(response => { setUsers(response.users);  console.log(response, 'gkjgkg');       });
         }
     }, [select])
 
@@ -23,9 +30,16 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
         setInputIdGamer(e.target.value);
     }
 
+    const selectOnChange = (e) => {
+        setInputIdGamer(e.target.value)
+    }
+
     const handleCreateRoom = async () => {
         if (!inputIdGamer || !select) {
-            console.log('No se ingreso algo');
+            alert.show('You should enter or select the id!',{
+                type: 'error',
+                timeout: 3000,
+            })
             return;
         }
 
@@ -51,9 +65,18 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
         <div className="col shadow-sm p-3 mb-5 bg-white rounded m-2 animate__animated animate__backInDown ">
 
             <div>
-
-                {game.data && game.data.player2.playerId === null ?
+                    {game.data && game.data.player2.playerId === null ?
                     <div className="form-group h-100 mt-5 animate__animated animate__backInRigth">
+                        <select multiple onChange={selectOnChange} className="form-control w-75 m-3 mx-auto" >
+
+                        {users &&
+                            users.map(
+                                (item, i) => (
+                                    <option key={item.uid} value={item.uid}>{i + 1}- {item.displayName}</option>
+                                )
+                            )
+                        }
+                        </select>
                         <input
                             value={inputIdGamer}
                             onChange={inputOnChange}

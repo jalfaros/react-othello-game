@@ -28,7 +28,7 @@ export const LobbyScreen = () => {
                 <div className="text-right">
 
                     <div style={{ textAlign: 'center' }}>
-                        <h3>Othello game lobby</h3>
+                        <h3>Lobby</h3>
                     </div>
                     <button 
                         className="btn btn-outline-danger " 

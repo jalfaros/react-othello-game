@@ -3,6 +3,8 @@ import { useHistory } from 'react-router';
 import { createNewGame, getGamesUser } from '../../helpers/getInitialGame';
 import { LobbyScreenRigth } from './LobbyScreenRigth';
 
+import { FaRedo } from 'react-icons/fa';
+
 export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, inputIdGame, inputIdGamer, select }) => {
 
     const idUser = JSON.parse(localStorage.getItem('id'));
@@ -70,14 +72,15 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                         <strong>My id:</strong> <samp>{JSON.parse(localStorage.getItem('id'))}</samp>
                     </div>
 
+                  
                     <div className="form-group h-40 mt-5 text-center">
 
-                        <button className=" btn  btn-outline-primary w-75 border-0 " onClick={getIdGames}>
-                            <i className="bi bi-arrow-repeat"></i>
+                        <button className="btn btn-outline" onClick={getIdGames}>
+                            <FaRedo />  Refresh...
                         </button>
 
                         {
-                            (idGames.length) ?
+                            (idGames.length) &&
                                 <select multiple onChange={selectOnChange} className="form-control w-75 m-3 mx-auto" >
 
                                     {
@@ -88,19 +91,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                                         )
                                     }
                                 </select>
-
-
-                                :
-
-
-                                <div className="container w-75 mx-auto" style={{ width: '50rem' }}>
-
-                                    <div className="alert alert-dark mt-5 " style={{ textAlign: 'center' }} >
-                                        You don´t have games!
-                                    </div>
-
-
-                                </div>
+                                
                         }
 
                     </div>
@@ -111,7 +102,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                         onClick={handleClickNewGame}
                     >Create game</button>
 
-                    
+
                     {
                         document.queryCommandSupported('copy') && select &&
 

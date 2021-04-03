@@ -12,6 +12,16 @@ export const getInitialGame = async ( idGame ) => {
     return data;
 }
 
+export const getAllPlayers = async () => {
+
+    const url  = `${urlHero}getAllplayers`;
+
+    const resp = await fetch( url );
+
+    const data = await resp.json();
+    return data;
+}
+
 export const savePlayerInfo = async ( params ) => {
 
     const requestOptions = {

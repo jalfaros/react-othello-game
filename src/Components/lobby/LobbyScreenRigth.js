@@ -20,7 +20,7 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
                 })
             });
 
-            getAllPlayers().then(response => { setUsers(response.users);  console.log(response, 'gkjgkg');       });
+            getAllPlayers().then(response => { setUsers(response.users);});
         }
     }, [select])
 
@@ -129,6 +129,10 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
                     </div>)
                     )    
                 }
+            </div>
+            <h3>How play</h3>
+            <div className="embed-responsive embed-responsive-16by9">
+            <iframe title = "How play" className="embed-responsive-item" src="https://www.youtube.com/embed/Ol3Id7xYsY4?rel=0" ></iframe>
             </div>
         </div>
     )

@@ -78,15 +78,16 @@ export const Board = () => {
         <>
             <ButtonsOptions />
 
-            <div className="container animate__animated animate__backInDown animate__delay-0s">
+            <div className="row m-3 shadow-lg p-3 mb-5 bg-light rounded animate__animated animate__backInDown animate__delay-0s">
                 {(state.data.boardGame !== undefined && !state.data.endedGame)
                     ?
-                    <div className="row">
-                        <div className="col-8 shadow-none p-3 mb-5 bg-light rounded">
-                            <div className="shadow-lg p-3 mb-5 bg-white rounded w-75 mx-auto">
+                    <>
+                        <div className="col shadow-none p-3 mb-5 bg-light rounded ml-5 mr-5 mx-auto">
+                            
+                            <div className="shadow-lg p-3 mb-5 bg-white rounded  mx-auto ml-5">
                                 <button onClick={skipTurn} className="btn btn-dark">
                                     Skip turn
-                            <span aria-hidden="true">&raquo;</span>
+                                    <span aria-hidden="true">&raquo;</span>
                                     <span className="sr-only">Skip turn</span>
                                 </button>
                                 <div className="text-center board mx-auto m-2">
@@ -108,7 +109,7 @@ export const Board = () => {
                             </div>
                         </div>
                         <UsersPlaying state={state} scoreBlack={scoreBlack} scoreWhite={scoreWhite} />
-                    </div>
+                    </>
                     :
                     (state.data.endedGame ?
                         (scoreWhite > scoreBlack ?

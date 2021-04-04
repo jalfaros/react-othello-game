@@ -5,7 +5,7 @@ import { Player2 } from './Player2'
 export const UsersPlaying = ({state, scoreBlack, scoreWhite}) => {
     return (
         <>
-            <div className="col-4 shadow-none bg-light rounded">
+            <div className="col shadow-none bg-light rounded ml-5 mx-auto">
                 {(state.data.xPlay)
                 ?(
                 <> 

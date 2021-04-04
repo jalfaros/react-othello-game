@@ -46,14 +46,14 @@ export const SquareBoard = ({id, item, state, idOfGame}) => {
                 
                {(item === 'X')
                &&
-               <span className="text-white">
+               <span className="text-white animate__animated animate__flipInX">
                     &#9679;
                 </span>
                 }
 
                 {(item === 'O')
                &&
-               <span className="text-dark">
+               <span className="text-dark animate__animated animate__flipInX">
                     &#9679;
                 </span>
                 }

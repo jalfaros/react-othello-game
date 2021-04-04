@@ -32,10 +32,6 @@ code {
   width: 50%;
 }
 
-.w {
-  width: 75%;
-}
-
 /*Fondo del tablero*/
 .board {
 
@@ -60,10 +56,6 @@ code {
 
 /* Para hacer responsive el login*/
 @media only screen and (max-width: 992px) {
-
-  .w {
-    width: 75%;
-  }
 
   .widthLogin {
     width: 85%;
@@ -93,13 +85,8 @@ code {
 
 @media only screen and (max-width: 767px) {
 
-  .w {
-    width: 100%;
-  }
-
-
   .widthLogin {
-    width: 85%;
+    width: 100%;
   }
 
   .board {

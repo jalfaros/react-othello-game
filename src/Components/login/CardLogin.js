@@ -78,12 +78,12 @@ export const CardLogin = () => {
 
     return (
 
-        <div className="text-center container ">
+        <div className="text-center ">
 
             <h1>Welcome <small> to Othello</small>
             </h1>
             <hr />
-            <div className="centrado shadow mb-5 bg-white rounded  p-3 text-center mx-auto ml-5 m-5 widthLogin">
+            <div className="shadow mb-5 bg-white rounded mt-5 p-3 text-center widthLogin mx-auto">
                 <form onSubmit={ handleSubmit }>
                     <span className="form-label">
                         <h3>Login</h3>

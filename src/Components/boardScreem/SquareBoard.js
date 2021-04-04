@@ -33,9 +33,7 @@ export const SquareBoard = ({id, item, state, idOfGame}) => {
             localPlayer === state.data.player2.playerId ? nextPlayer = state.data.player1.playerId : nextPlayer = state.data.player2.playerId;
 
             postClickGame( {idGame: idOfGame, boardGame: state.data.boardGame, xPlay: state.data.xPlay, clickedPosition: id, currentPlayer: nextPlayer} )
-            .then(async m => {  
-                console.log(m,'Jugada realizada');
-            }).catch(Error => {
+            .then().catch(Error => {
                 console.log(Error);
             })
         }

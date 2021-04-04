@@ -9,6 +9,7 @@ const AboutCard = ({ devName, gitLink, gitImg }) => {
                     <img
                         src= { gitImg }
                         className="img-fluid"
+                        alt="Creators"
                     />
 
 

@@ -1,6 +1,6 @@
 
 // const urlHero ='http://localhost:4000/';
-const urlHero = 'https://design-othello-game.herokuapp.com/'
+const urlHero = 'https://reversi-backend.herokuapp.com/'
 
 export const getInitialGame = async ( idGame ) => {
 

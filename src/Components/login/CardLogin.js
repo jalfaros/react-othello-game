@@ -1,21 +1,16 @@
 import React, { useContext, useState } from 'react'
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../auth/AuthContext';
 import { useForm } from '../../Hooks/useForm';
 import { types } from '../../types/types';
-import { LoginWithFacebook } from './LoginWithFacebook';
 import firebas from '../../firebase/firebase';
-
-//import firebase from 'firebase'
-
-// import app from "../../firebase/firebaseConfig"
+import { FcGoogle } from "react-icons/fc";
+import { savePlayerInfo } from '../../helpers/getInitialGame';
 
 export const CardLogin = () => {
 
-    const history = useHistory();
-
-    //const provider = new firebase.auth.FacebookAuthProvider();
+    //const history = useHistory();
 
     const { dispatch } = useContext(AuthContext);
 
@@ -46,6 +41,30 @@ export const CardLogin = () => {
 
     }
 
+    async function signInWithGoogle(){
+        try{
+            await( firebas.loginWithGoogle())
+            .then((result) => {
+
+                var user = result.user;
+
+                localStorage.setItem('id', JSON.stringify(user.uid));
+
+                savePlayerInfo({uid: user.uid, displayName: user.displayName, email: user.email}).then();
+
+                dispatch({
+                    type: types.login,
+                    payload: {
+                        name: user.displayName
+                    }
+                })
+        })
+    }catch(error){
+        console.log(error);
+    }
+
+    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -57,27 +76,14 @@ export const CardLogin = () => {
         signIn();
     }
 
-    const responseFacebook = (response) => {
-        console.log(response);
-
-        dispatch({
-            type: types.login,
-            payload: {
-                name: response.name 
-            }
-        })
-        history.replace('/')
-      }
-
-
-
     return (
 
-        <div className="text-center container">
+        <div className="text-center container ">
+
             <h1>Welcome <small> to Othello</small>
             </h1>
             <hr />
-            <div className=" shadow mb-5 bg-white rounded  p-3 text-center mx-auto ml-5 m-5 widthLogin">
+            <div className="centrado shadow mb-5 bg-white rounded  p-3 text-center mx-auto ml-5 m-5 widthLogin">
                 <form onSubmit={ handleSubmit }>
                     <span className="form-label">
                         <h3>Login</h3>
@@ -128,13 +134,13 @@ export const CardLogin = () => {
                         <div className="m-3">
                         <button  className="btn btn-success w-50">Sign In</button>
                         </div>
-                    </div>
 
-                    <div className="mb-3">
-
-                        <LoginWithFacebook responseFacebook={ responseFacebook }/>
                         
+                    <button onClick={signInWithGoogle} className="btn btn-outline-dark w-50 m-3">
+                        <FcGoogle /> Login with Google
+                    </button>
                     </div>
+
                 </form>
             </div>
         </div>

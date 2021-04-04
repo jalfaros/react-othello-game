@@ -3,9 +3,6 @@ import 'firebase/auth'
 
 import firebaseConfig from './config';
 
-//import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
-
-
 class Firebase {
     constructor() {
         if(!app.apps.length) {
@@ -32,6 +29,13 @@ class Firebase {
 
     async login(email, password){
         return this.auth.signInWithEmailAndPassword(email, password);
+    }
+
+    //Inicia con autenticacion de google
+
+    async loginWithGoogle(){
+        var provider = new app.auth.GoogleAuthProvider();
+        return this.auth.signInWithPopup(provider);
     }
 
     //Cierra la sesion del usuario

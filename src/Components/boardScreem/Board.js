@@ -32,7 +32,6 @@ export const Board = () => {
     const getGame = () => {
         getInitialGame(idOfGame)
             .then(async m => {
-                console.log(m, 'peticion');
                 await setScoreWhite(m.game.score.player1);
                 await setScoreBlack(m.game.score.player2);
 
@@ -42,7 +41,6 @@ export const Board = () => {
                 });
             })
             .catch(error => {
-                console.log(error);
             });
     }
 
@@ -68,12 +66,11 @@ export const Board = () => {
 
 
         editSkipTurn({ idGame: idOfGame, xPlay: !state.data.xPlay, currentPlayer: nextPlayer })
-            .then(response => console.log(response));
+            .then();
     }
 
     if (!inGame) {
         setInGame(true);
-
         myFuntion();
     }
 

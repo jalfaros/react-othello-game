@@ -49,9 +49,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
     const handleJoin = () => {
 
         if (!inputIdGame) {
-            console.log('No se ingreso el id');
         }
-        console.log(inputIdGame);
         history.push(`/board/${inputIdGame}`)
 
         setInputIdGame('');
@@ -90,8 +88,7 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                                             )
                                         )
                                     }
-                                </select>
-                                
+                                </select> 
                         }
 
                     </div>

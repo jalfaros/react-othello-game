@@ -3,7 +3,6 @@ import React from 'react'
 export const Player1 = ({state, scoreWhite, scoreBlack}) => {
     const localPlayer = JSON.parse( localStorage.getItem('id') );
 
-    console.log(state.data.player1.playerName, 'player1');
     return (
         <>  
             { state.data.currentPlayer === localPlayer

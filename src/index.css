@@ -32,6 +32,10 @@ code {
   width: 50%;
 }
 
+.w {
+  width: 75%;
+}
+
 /*Fondo del tablero*/
 .board {
 
@@ -56,6 +60,10 @@ code {
 
 /* Para hacer responsive el login*/
 @media only screen and (max-width: 992px) {
+
+  .w {
+    width: 75%;
+  }
 
   .widthLogin {
     width: 85%;
@@ -85,10 +93,10 @@ code {
 
 @media only screen and (max-width: 767px) {
 
-  /* .position {
-    position: relative;
-    right: -30px;
-  } */
+  .w {
+    width: 100%;
+  }
+
 
   .widthLogin {
     width: 85%;
@@ -113,50 +121,5 @@ code {
 
   .width {
     width: 200px;
-  }
-}
-
-@media only screen and (max-width: 540px) {
-
-  /* .position {
-    position: absolute;
-    right: 100px;
-  } */
-
-  .widthLogin {
-    width: 100%;
-  }
-
-  .board {
-
-    height: 160px;
-    width: 96px;
-  }
-
-  .square {
-    float: left;
-    height: 20px;
-    width: 12px;
-    font-size: 15px;
-    background-color: darkgreen;
-
-    cursor: pointer;
-    cursor: hand
-  }
-
-  .width {
-    width: 200px;
-  }
-
-}
-
-@media only screen and (max-width: 530px) {
-  /* .position {
-    position: absolute;
-    right: 55px;
-  } */
-
-  .widthLogin {
-    width: 100%;
   }
 }

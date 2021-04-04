@@ -74,7 +74,7 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
                                 users.map(
                                     (item, i) => (
                                         (item.uid !== idUser &&
-                                        <option key={item.uid} value={item.uid}>{i + 1}- {item.displayName}</option>)
+                                        <option key={item.uid} value={item.uid}>-> {item.displayName}</option>)
                                         
                                     )
                                 )

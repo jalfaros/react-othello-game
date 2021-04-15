@@ -73,8 +73,8 @@ export const LobbyScreenLeft = ({ setSelect, setInputIdGame, setInputIdGamer, in
                   
                     <div className="form-group h-40 mt-5 text-center">
 
-                        <button className="btn btn-outline" onClick={getIdGames}>
-                            <FaRedo />  Refresh...
+                        <button className="btn btn-outline m-5" onClick={getIdGames}>
+                            <FaRedo />  Refresh games...
                         </button>
 
                         {

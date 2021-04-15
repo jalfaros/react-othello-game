@@ -68,6 +68,7 @@ export const LobbyScreenRigth = ({ setInputIdGamer, setSelect, inputIdGamer, sel
             <div>
                 {game.data && game.data.player2.playerId === null ?
                     <div className="form-group h-100 mt-5 animate__animated animate__backInRigth">
+                        <label class="form-label mt-3 text-center">Gamers</label>
                         <select multiple onChange={selectOnChange} className="form-control w-75 m-3 mx-auto" >
 
                             {users &&

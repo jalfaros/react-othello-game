@@ -14,9 +14,8 @@ export const Board = () => {
     const [state, setState] = useState({ data: [{ boardGame: [] }], loading: true });
     const [scoreBlack, setScoreBlack] = useState(2);
     const [scoreWhite, setScoreWhite] = useState(2);
-    //const [nextPlayer, setNextPlayer] = useState('');
-    const alert = useAlert();
 
+    const alert = useAlert();
 
     useEffect(() => {
         getInitialGame(idOfGame)

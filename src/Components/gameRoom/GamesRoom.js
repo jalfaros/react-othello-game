@@ -1,37 +1,71 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Navbar } from '../ui/Navbar'
+
 
 export const GamesRoom = () => {
     return (
-        <div className="text-white bg-dark">
-            <div className ="text-success text-center">
-                <h1>Games Room</h1>
-                <hr/>
-            </div>
-            <div className="card-group">
-                <div className="card m-5">
-                    <img className="card-img-top" style={{height: 500}} src={"./images/othello.png"} alt="othello" /> 
-                    
-                    <div className="btn m-3">
-                        <Link className="txt1" to="/login"> Play othello </Link>
-                    </div>
-                </div>
+        <>
+            <Navbar />
 
-                <div className="card m-5">
-                    <img className="card-img-top" style={{height: 500}} src={"./images/damas.jpg"} alt="damas chinas" />
+            <div className="container mt-5" >
+                <div className="card" >
 
-                    <div className="btn m-3">
-                        <Link className="txt1" to="/login"> Play damas </Link>
+                    <div className="card-header" style={{ textAlign: 'center' }} >
+                        <h4> <strong>Game Room</strong> </h4>
                     </div>
 
+                    <div card-body>
+                        <div className="row">
+
+                            <div className="col-sm" >
+                                <div className="card mt-3">
+                                    <div className="card-header" style={{ textAlign: 'center' }} >
+                                        <strong> Reversi </strong>
+                                    </div>
+
+                                    <div className = "card-body" style = {{ textAlign : 'center' }} >
+                                        <img src = "https://upload.wikimedia.org/wikipedia/commons/2/20/Othello-Standard-Board.jpg" 
+                                            style = {{ width: '400px', height: '300px' }}
+                                        />
+                                    </div>
+
+                                    <div className = "card-footer" style = {{ textAlign: 'center' }}>
+                                        <button className = "btn btn-outline-dark">
+                                            Play game...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-sm" >
+                                <div className="card mt-3">
+                                    <div className="card-header" style={{ textAlign: 'center' }} >
+                                        <strong> More games ... </strong>
+                                    </div>
+
+                                    <div className = "card-body" style = {{ textAlign : 'center' }} >
+                                        <img src = "https://i1.wp.com/www.seniainternational.org/wp-content/uploads/2019/02/Coming-Soon-2-1.png?fit=1000%2C816&ssl=1" 
+                                            style = {{ width: '400px', height: '300px' }}
+                                        />
+                                    </div>
+                                    
+                                </div>
+                                <div className = "card-footer" style = {{ textAlign: 'center' }}>
+                                        <button className = "btn btn-dark" disabled>
+                                            Play game
+                                        </button>
+                                    </div>
+                            </div>
+
+                            
+
+
+                        </div>
+                    </div>
+
                 </div>
-
             </div>
 
-            <div className ="text-success text-center m-5">
-                <h1>You are in the game room</h1>
-                <hr/>
-            </div>
-        </div>
+        </>
     )
 }

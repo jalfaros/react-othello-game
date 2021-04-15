@@ -11,3 +11,108 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.card-conf {
+  margin: 0 auto;
+  margin-top: 15%;
+  float: none;
+  margin-bottom: 20px;
+  width: 20rem;
+
+}
+
+
+.disabled {
+  background: #ccc;
+}
+
+/* para hacer responsive el login */
+.widthLogin {
+  width: 50%;
+}
+
+/*Fondo del tablero*/
+.board {
+
+  height: 400px;
+  width: 400px;
+}
+
+.square {
+  float: left;
+  height: 50px;
+  width: 50px;
+  font-size: 40px;
+  background-color: darkgreen;
+
+  cursor: pointer;
+  cursor: hand
+}
+
+.width {
+  width: 600px;
+}
+
+/* Para hacer responsive el login*/
+@media only screen and (max-width: 992px) {
+
+  .widthLogin {
+    width: 85%;
+  }
+
+  .board {
+
+    height: 400px;
+    width: 280px;
+  }
+
+  .square {
+    float: left;
+    height: 50px;
+    width: 35px;
+    font-size: 30px;
+    background-color: darkgreen;
+
+    cursor: pointer;
+    cursor: hand
+  }
+
+  .width {
+    width: 400px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+
+  .widthLogin {
+    width: 100%;
+  }
+
+  .board {
+
+    height: 240px;
+    width: 200px;
+  }
+
+  .square {
+    float: left;
+    height: 30px;
+    width: 25px;
+    font-size: 20px;
+    background-color: darkgreen;
+
+    cursor: pointer;
+    cursor: hand
+  }
+
+  .width {
+    width: 200px;
+  }
+
+.image_room {
+  height: 300px;
+  width : 300px;
+  
+}
+}

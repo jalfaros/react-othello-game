@@ -1,12 +1,9 @@
 import React from 'react'
-import { Navbar } from '../ui/Navbar'
-
+import { Link } from 'react-router-dom'
 
 export const GamesRoom = () => {
     return (
         <>
-            <Navbar />
-
             <div className="container mt-5" >
                 <div className="card" >
 
@@ -25,14 +22,14 @@ export const GamesRoom = () => {
 
                                     <div className = "card-body" style = {{ textAlign : 'center' }} >
                                         <img src = "https://upload.wikimedia.org/wikipedia/commons/2/20/Othello-Standard-Board.jpg" 
-                                            style = {{ width: '400px', height: '300px' }}
+                                            style = {{ width: '400px', height: '300px' }} alt="Othello"
                                         />
                                     </div>
 
                                     <div className = "card-footer" style = {{ textAlign: 'center' }}>
-                                        <button className = "btn btn-outline-dark">
-                                            Play game...
-                                        </button>
+                                        <div className="m-3">
+                                        <Link className="txt1" to="/lobby"> Play Othello </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -45,16 +42,14 @@ export const GamesRoom = () => {
 
                                     <div className = "card-body" style = {{ textAlign : 'center' }} >
                                         <img src = "https://i1.wp.com/www.seniainternational.org/wp-content/uploads/2019/02/Coming-Soon-2-1.png?fit=1000%2C816&ssl=1" 
-                                            style = {{ width: '400px', height: '300px' }}
+                                            style = {{ width: '400px', height: '300px' }} alt="Othello"
                                         />
                                     </div>
                                     
                                 </div>
                                 <div className = "card-footer" style = {{ textAlign: 'center' }}>
-                                        <button className = "btn btn-dark" disabled>
-                                            Play game
-                                        </button>
-                                    </div>
+
+                                </div>
                             </div>
 
                             

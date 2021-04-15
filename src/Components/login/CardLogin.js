@@ -139,6 +139,10 @@ export const CardLogin = () => {
                     <button onClick={signInWithGoogle} className="btn btn-outline-dark w-50 m-3">
                         <FcGoogle /> Login with Google
                     </button>
+
+                    <div className="m-3">
+                        <Link className="txt1" to="/room"> Back to the room </Link>
+                    </div>
                     </div>
 
                 </form>

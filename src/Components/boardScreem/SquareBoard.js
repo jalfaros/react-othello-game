@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useAlert } from 'react-alert';
 import { postClickGame } from '../../helpers/getInitialGame';
 
-export const SquareBoard = ({id, item, state, idOfGame}) => {
+export const SquareBoard = memo(({id, item, state, idOfGame}) => {
 
+    console.log('Pintando cuadro');
     const idUser      = JSON.parse(localStorage.getItem('id'));
     const localPlayer = JSON.parse( localStorage.getItem('id') );
     const alert       = useAlert();
@@ -62,3 +63,4 @@ export const SquareBoard = ({id, item, state, idOfGame}) => {
         </>
     )
 }
+)

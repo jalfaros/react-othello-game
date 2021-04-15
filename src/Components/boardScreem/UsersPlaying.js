@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Player1 } from './Player1'
 import { Player2 } from './Player2'
 
-export const UsersPlaying = ({state, scoreBlack, scoreWhite}) => {
+export const UsersPlaying = memo(({state, scoreBlack, scoreWhite}) => {
+    console.log('Pintando los players');
     return (
         <>
             <div className="col shadow-none bg-light rounded ml-5 mx-auto">
@@ -24,4 +25,4 @@ export const UsersPlaying = ({state, scoreBlack, scoreWhite}) => {
             
         </>
     )
-}
+});

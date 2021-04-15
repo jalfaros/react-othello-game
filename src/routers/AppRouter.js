@@ -5,7 +5,6 @@ import {
     Switch
 } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthContext'
-import { GamesRoom } from '../Components/gameRoom/GamesRoom'
 import { Login } from '../Components/login/Login'
 import { Register } from '../Components/register/Register'
 import { DashboardRoutes } from './DashboardRoutes'
@@ -20,12 +19,6 @@ export const AppRouter = () => {
         <Router>
         <div>
             <Switch>
-
-                <PublicRoute 
-                path='/room'
-                component={GamesRoom}
-                isAuthenticated={ user.logged }
-                />
                 <PublicRoute 
                     path="/login" 
                     component={ Login } 

@@ -109,4 +109,10 @@ code {
   .width {
     width: 200px;
   }
+
+.image_room {
+  height: 300px;
+  width : 300px;
+  
+}
 }
